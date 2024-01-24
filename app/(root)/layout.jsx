@@ -5,10 +5,12 @@ import Search from "@/components/Search";
 export default function RootLayout({ children }) {
     return (
         <main>
-            <Header/>
-            <Search/>
+            <Header />
+            <div className="md:hidden block px-6">
+                <Search />
+            </div>
             {children}
-            <Footer/>
+            <Footer />
         </main>
     )
 }

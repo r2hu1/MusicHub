@@ -13,15 +13,16 @@ import Link from "next/link";
 import { ModeToggle } from "./ModeToggle";
 import { Input } from "./ui/input";
 import Logo from "./Logo";
+import Search from "./Search";
 
 export default function Header() {
     return (
         <header className="flex justify-between items-center py-6 md:px-20 px-6">
-            <Logo/>
+            <Logo />
             <div className="flex items-center justify-center gap-2">
-            <form action="/search" className="hidden md:block">
-                <Input autoComplete="off" className="w-full min-w-[300px]" type="search" name="query" placeholder="Search.." />
-            </form>
+                <div className="hidden md:block">
+                    <Search />
+                </div>
                 <ModeToggle />
                 <Sheet>
                     <SheetTrigger asChild>
