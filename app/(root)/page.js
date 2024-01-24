@@ -10,9 +10,10 @@ export default function Page() {
 
   return (
     <div className="px-6 md:px-20 py-10 grid gap-5 -mb-10">
-      
+
       <div className="-mb-2">
         <h1 className="font-bold text-lg">🔥 Trending<span className="text-primary">.</span></h1>
+        <p className="-mt-1 text-xs">trending songs in india</p>
       </div>
 
       <ScrollArea className="whitespace-nowrap pb-4">
@@ -26,6 +27,7 @@ export default function Page() {
 
       <div className="-mb-2">
         <h1 className="font-bold text-lg">🎧 Relaxing<span className="text-primary">.</span></h1>
+        <p className="-mt-1 text-xs">top relaxing songs for peace</p>
       </div>
       <ScrollArea className="whitespace-nowrap pb-4">
         <div className="flex gap-6 items-center md:justify-center">
@@ -38,6 +40,7 @@ export default function Page() {
 
       <div className="-mb-2">
         <h1 className="font-bold text-lg">💞 Romanse<span className="text-primary">.</span></h1>
+        <p className="-mt-1 text-xs">top romanse songs for mood</p>
       </div>
       <ScrollArea className="whitespace-nowrap pb-4">
         <div className="flex gap-6 items-center md:justify-center">
@@ -50,6 +53,7 @@ export default function Page() {
 
       <div className="-mb-2">
         <h1 className="font-bold text-lg">💤 Lofi<span className="text-primary">.</span></h1>
+        <p className="-mt-1 text-xs">top lofi songs to chill</p>
       </div>
       <ScrollArea className="whitespace-nowrap pb-4">
         <div className="flex gap-6 items-center md:justify-center">
