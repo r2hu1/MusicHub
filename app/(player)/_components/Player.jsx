@@ -113,17 +113,15 @@ export default function Player({ params }) {
                     )}
                     <p className="text-xs -mt-4 max-w-xl mx-auto">{data.singers || "unknown"}</p>
                 </div>
-                <div className="mx-auto">
-                    {!duration ? (
-                        <Skeleton className="h-2 w-[600px] rounded-full max-w-[400px]" />
-                    ) : (
-                        <Slider value={[currentTime]} max={duration} className="max-w-[400px] w-[600px]" />
-                    )}
-                </div>
+                {!duration ? (
+                    <Skeleton className="h-2 w-[600px] rounded-full max-w-[400px]" />
+                ) : (
+                    <Slider value={[currentTime]} max={duration} className="w-full max-w-[400px] mx-auto" />
+                )}
                 {!duration ? (
                     <div className="-mt-6 -mb-3 w-full max-w-[400px] mx-auto flex items-center justify-between">
-                        <Skeleton className="h-[9px] w-10"/>
-                        <Skeleton className="h-[9px] w-10"/>
+                        <Skeleton className="h-[9px] w-10" />
+                        <Skeleton className="h-[9px] w-10" />
                     </div>
                 ) : (
                     <div className="-mt-6 -mb-3 w-full max-w-[400px] mx-auto flex items-center justify-between">
