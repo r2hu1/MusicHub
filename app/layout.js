@@ -14,6 +14,8 @@ export const metadata = {
     template: "%s | Musichub",
   },
   description: "Open-Source music web app.",
+  icons: "/logo-musichub.webp",
+  manifest: "/manifest.json",
 };
 
 export default function RootLayout({ children }) {
