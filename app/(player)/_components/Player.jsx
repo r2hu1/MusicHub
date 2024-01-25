@@ -7,6 +7,7 @@ import { Slider } from "@/components/ui/slider";
 import { ScrollArea } from "@radix-ui/react-scroll-area";
 import { ScrollBar } from "@/components/ui/scroll-area";
 import { Skeleton } from "@/components/ui/skeleton";
+import { cn } from "@/lib/utils";
 
 export default function Player({ params }) {
     const [data, setData] = useState([]);
@@ -15,6 +16,7 @@ export default function Player({ params }) {
     const [currentTime, setCurrentTime] = useState(0);
     const [duration, setDuration] = useState(0);
     const [lyricsP, setLyricsP] = useState("");
+    const [isLooping, setIsLooping] = useState(false);
 
     const getSong = async () => {
         const get = await getSongsById(params.id);
@@ -62,6 +64,7 @@ export default function Player({ params }) {
 
     const loopSong = () => {
         audioRef.current.loop = !audioRef.current.loop;
+        setIsLooping(!isLooping);
     };
 
     useEffect(() => {
@@ -96,8 +99,8 @@ export default function Player({ params }) {
                             <img src={data.image} className="h-full rounded-full max-w-[200px] object-cover mx-auto" />
                         )}
                     </div>
-                    {!data.singers && (
-                        <Skeleton className="h-4 w-24 mx-auto" />
+                    {!data.song && (
+                        <Skeleton className="h-5 w-32 mx-auto" />
                     )}
                     <h1 className="text-lg font-bold md:max-w-lg max-w-[260px]">{data.song}</h1>
                     <p className="text-xs -mt-4">{data.singers || "unknown"}</p>
@@ -109,7 +112,7 @@ export default function Player({ params }) {
                 </div>
                 {data.media_url ? (
                     <div className="flex items-center justify-center gap-6">
-                        <Button size="icon" variant="secondary" onClick={loopSong}>
+                        <Button size="icon" variant={isLooping ? "default" : "secondary"} onClick={loopSong}>
                             <InfinityIcon className="h-4 w-4" />
                         </Button>
                         <Button size="icon" onClick={togglePlayPause}>
