@@ -1,13 +1,13 @@
 "use client"
 import { Button } from "@/components/ui/button";
 import { getSongsById, getSongsLyricsById } from "@/lib/fetch";
-import { Download, X, Pause, Play, InfinityIcon } from "lucide-react";
+import { Download, X, Pause, Play, InfinityIcon, Forward, SkipForward, SkipBack, ReplyAll, ReplyAllIcon, RedoDot, UndoDot } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import { Slider } from "@/components/ui/slider";
-import { ScrollArea } from "@radix-ui/react-scroll-area";
-import { ScrollBar } from "@/components/ui/scroll-area";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
+import { Progress } from "@/components/ui/progress"
+import { Slider } from "@/components/ui/slider";
+
 
 export default function Player({ params }) {
     const [data, setData] = useState([]);
@@ -67,6 +67,12 @@ export default function Player({ params }) {
         setIsLooping(!isLooping);
     };
 
+    const changeRight = () => {
+        audioRef.current.currentTime = audioRef.current.currentTime + 10;
+    }
+    const changeLeft = () => {
+        audioRef.current.currentTime = audioRef.current.currentTime - 10;
+    };
     useEffect(() => {
         getSong();
         // getLyrics();
@@ -88,52 +94,77 @@ export default function Player({ params }) {
     }, []);
     return (
         <div>
-            <audio src={data.media_url} ref={audioRef}></audio>
+            <div className="absolute inset-0 -z-10 h-full w-full bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:24px_24px]">
+                <div className={cn("absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-primary opacity-20 blur-[100px]", playing ? "animate-pulse" : "animate-none")}></div></div>
+            <audio onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} onLoadedData={() => setDuration(audioRef.current.duration)} src={data.media_url} ref={audioRef}></audio>
             <div className="grid gap-6 px-6">
                 <div className="grid text-center place-content-center gap-3">
                     <div>
-                        {!data.image && (
+                        {!data.image ? (
                             <Skeleton className="w-[200px] rounded-full h-[200px] mx-auto" />
-                        )}
-                        {data.image && (
+                        ) : (
                             <img src={data.image} className="h-full rounded-full max-w-[200px] object-cover mx-auto" />
                         )}
                     </div>
-                    {!data.song && (
-                        <Skeleton className="h-5 w-32 mx-auto" />
+                    {!data.song ? (
+                        <Skeleton className="h-5 w-32 mx-auto mb-1" />
+                    ) : (
+                        <h1 className="text-lg mx-auto font-bold md:max-w-lg max-w-[260px]">{data.song}</h1>
                     )}
-                    <h1 className="text-lg font-bold md:max-w-lg max-w-[260px]">{data.song}</h1>
-                    <p className="text-xs -mt-4">{data.singers || "unknown"}</p>
+                    <p className="text-xs -mt-4 max-w-xl mx-auto">{data.singers || "unknown"}</p>
                 </div>
-                <Slider className="max-w-[400px] mx-auto w-full" max={duration} value={[currentTime]} />
-                <div className="-mt-6 -mb-3 w-full max-w-[400px] mx-auto flex items-center justify-between">
-                    <span className="text-xs">{formatTime(currentTime)}</span>
-                    <span className="text-xs">{formatTime(duration)}</span>
+                <div className="mx-auto">
+                    {!duration ? (
+                        <Skeleton className="h-2 w-[600px] rounded-full max-w-[400px]" />
+                    ) : (
+                        <Slider value={[currentTime]} max={duration} className="max-w-[400px] w-[600px]" />
+                    )}
                 </div>
-                {data.media_url ? (
-                    <div className="flex items-center justify-center gap-6">
-                        <Button size="icon" variant={isLooping ? "default" : "secondary"} onClick={loopSong}>
-                            <InfinityIcon className="h-4 w-4" />
-                        </Button>
-                        <Button size="icon" onClick={togglePlayPause}>
-                            {playing ? (
-                                <Pause className="h-5 w-5" />
-                            ) : (
-                                <Play className="h-5 w-5" />
-                            )}
-                        </Button>
-                        <Button size="icon" variant="secondary" onClick={downloadSong}>
-                            <Download className="h-4 w-4" />
-                        </Button>
+                {!duration ? (
+                    <div className="-mt-6 -mb-3 w-full max-w-[400px] mx-auto flex items-center justify-between">
+                        <Skeleton className="h-[9px] w-10"/>
+                        <Skeleton className="h-[9px] w-10"/>
                     </div>
                 ) : (
-                    <div className="flex items-center justify-center gap-6">
-                        <Skeleton className="h-10 w-10" />
-                        <Skeleton className="h-10 w-10" />
-                        <Skeleton className="h-10 w-10" />
+                    <div className="-mt-6 -mb-3 w-full max-w-[400px] mx-auto flex items-center justify-between">
+                        <span className="text-xs">{formatTime(currentTime)}</span>
+                        <span className="text-xs">{formatTime(duration)}</span>
                     </div>
                 )}
-            </div>
+                {
+                    data.media_url ? (
+                        <div className="flex items-center justify-center gap-4">
+                            <Button size="icon" variant={isLooping ? "default" : "secondary"} onClick={loopSong}>
+                                <InfinityIcon className="h-4 w-4" />
+                            </Button>
+                            <div className="flex items-center justify-center gap-2">
+                                <Button size="icon" onClick={changeRight}><RedoDot className="h-5 w-5" /></Button>
+                                <Button size="icon" onClick={togglePlayPause}>
+                                    {playing ? (
+                                        <Pause className="h-5 w-5" />
+                                    ) : (
+                                        <Play className="h-5 w-5" />
+                                    )}
+                                </Button>
+                                <Button size="icon" onClick={changeLeft}><UndoDot className="h-5 w-5 transition" /></Button>
+                            </div>
+                            <Button size="icon" variant="secondary" onClick={downloadSong}>
+                                <Download className="h-4 w-4" />
+                            </Button>
+                        </div>
+                    ) : (
+                        <div className="flex items-center justify-center gap-4">
+                            <Skeleton className="h-10 w-10" />
+                            <div className="flex items-center justify-center gap-2">
+                                <Skeleton className="h-10 w-10" />
+                                <Skeleton className="h-10 w-10" />
+                                <Skeleton className="h-10 w-10" />
+                            </div>
+                            <Skeleton className="h-10 w-10" />
+                        </div>
+                    )
+                }
+            </div >
         </div >
     )
 }
