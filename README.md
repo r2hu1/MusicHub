@@ -2,6 +2,11 @@
 
 MusicHub is a web music app built using Next.js 14, App Router, and an unofficial music API. The user interface is styled with Tailwind CSS.
 
+[![Follow me](https://img.shields.io/github/followers/r2hu1?style=social)](https://github.com/r2hu1)
+[![Star this Repo](https://img.shields.io/github/stars/r2hu1/musichub?style=social)](https://github.com/r2hu1/musichub)
+
+<br/>
+
 ![Homepage](https://i.postimg.cc/SsHpgjGS/Screenshot-2024-01-25-135641.png)
 
 ## Features
@@ -20,7 +25,7 @@ MusicHub is a web music app built using Next.js 14, App Router, and an unofficia
 ![Search Page](https://i.postimg.cc/NGrt57g5/Screenshot-2024-01-25-135715.png)
 
 ### Music Page
-![Music Page](https://i.postimg.cc/kG8Pz9jx/Screenshot-2024-01-25-135728.png)
+![Music Page](https://i.postimg.cc/vZ7tQ5W6/image.png)
 
 ## Installation
 
