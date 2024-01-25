@@ -8,7 +8,7 @@ import {
     SheetFooter
 } from "@/components/ui/sheet";
 import { Button } from "./ui/button";
-import { MenuIcon } from "lucide-react";
+import { MenuIcon, Star } from "lucide-react";
 import Link from "next/link";
 import { ModeToggle } from "./ModeToggle";
 import { Input } from "./ui/input";
@@ -24,23 +24,7 @@ export default function Header() {
                     <Search />
                 </div>
                 <ModeToggle />
-                <Sheet>
-                    <SheetTrigger asChild>
-                        <Button size="icon"><MenuIcon className="h-5 w-5" /></Button>
-                    </SheetTrigger>
-                    <SheetContent className="grid place-items-center">
-                        <SheetHeader>
-                            <SheetDescription>
-                                <ul className="flex flex-col gap-2 w-full">
-                                    <li className="h-12 w-full flex items-center justify-center text-base hover:text-primary cursor-pointer transition text-secondary-foreground"><Link href="/">Home</Link></li>
-                                    <li className="h-12 w-full flex items-center justify-center text-base hover:text-primary cursor-pointer transition text-secondary-foreground"><Link href="/">Trending</Link></li>
-                                    <li className="h-12 w-full flex items-center justify-center text-base hover:text-primary cursor-pointer transition text-secondary-foreground"><Link href="/">New Releases</Link></li>
-                                    <li className="h-12 w-full flex items-center justify-center text-base hover:text-primary cursor-pointer transition text-secondary-foreground"><Link href="/">Artists</Link></li>
-                                </ul>
-                            </SheetDescription>
-                        </SheetHeader>
-                    </SheetContent>
-                </Sheet>
+                <Button size="icon" asChild><Link href="https://github.com/r2hu1/musichub" target="_blank"><Star className="h-5 w-5"/></Link></Button>
             </div>
         </header>
     )
