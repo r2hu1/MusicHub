@@ -70,9 +70,14 @@ export default function Search(params) {
                 <div className="flex gap-6 flex-wrap">
                     {songs[0] && (
                         <div className="flex gap-4">
-                            <ArtistCard image={songs[0].image} name={songs[0].singers} />
-                            {songs[1] && (
+                            {songs[0].singers && (
+                                <ArtistCard image={songs[0].image} name={songs[0].singers} />
+                            )}
+                            {songs[1].singers && (
                                 <ArtistCard image={songs[1].image} name={songs[1].singers} />
+                            )}
+                            {!songs[1].singers && !songs[0].singers && (
+                                <ArtistCard name="unknown"/>
                             )}
                         </div>
                     )}
