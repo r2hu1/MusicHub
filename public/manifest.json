@@ -1,6 +1,6 @@
 {
-    "name": "PWA App",
-    "short_name": "App",
+    "name": "MusicHub",
+    "short_name": "MusicHub",
     "theme_color": "#2563eb",
     "background_color": "#2563eb",
     "start_url": "/",
