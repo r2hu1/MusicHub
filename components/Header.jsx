@@ -1,17 +1,7 @@
-import {
-    Sheet,
-    SheetContent,
-    SheetDescription,
-    SheetHeader,
-    SheetTitle,
-    SheetTrigger,
-    SheetFooter
-} from "@/components/ui/sheet";
 import { Button } from "./ui/button";
-import { MenuIcon, Star } from "lucide-react";
+import { Star } from "lucide-react";
 import Link from "next/link";
 import { ModeToggle } from "./ModeToggle";
-import { Input } from "./ui/input";
 import Logo from "./Logo";
 import Search from "./Search";
 
