@@ -4,7 +4,7 @@ import { Skeleton } from "./ui/skeleton";
 
 export default function SongCard({ title, image, artist, id }) {
     return (
-        <Link href={id} className="cursor-pointer" title={title}>
+        <Link href={`/${id}`} className="cursor-pointer" title={title}>
             <div className="rounded-md h-fit w-fit grid gap-2">
                 <div>
                     <img className="transition hover:opacity-75 rounded-md max-w-[200px] aspect-square h-full max-h-[200px] resize-none object-cover" src={image} />

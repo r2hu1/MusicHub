@@ -7,9 +7,9 @@ import { newSongs } from "@/lib/catchedSong";
 import { getSongsByQuery } from "@/lib/fetch";
 import { useEffect, useState } from "react";
 
-export default function Search(params) {
+export default function Search({params}) {
     const rap = newSongs;
-    const query = params.searchParams.query;
+    const query = params.id;
 
     const [artists, setArtists] = useState([]);
     const [songs, setSongs] = useState([]);
@@ -28,7 +28,7 @@ export default function Search(params) {
             <div className="grid gap-4">
                 <div className="mt-2">
                     <h1 className="text-lg font-bold">Results<span className="text-primary">.</span></h1>
-                    <p className="-mt-1 text-xs">search results for "{query}"</p>
+                    <p className="-mt-1 text-xs">search results for "{decodeURI(query)}"</p>
                 </div>
                 <ScrollArea className="whitespace-nowrap pb-4">
                     <div className="flex gap-6">
@@ -65,7 +65,7 @@ export default function Search(params) {
 
                 <div className="mt-5">
                     <h1 className="text-lg font-bold">Artists<span className="text-primary">.</span></h1>
-                    <p className="-mt-1 text-xs">artists related to "{query}"</p>
+                    <p className="-mt-1 text-xs">artists related to "{decodeURI(query)}"</p>
                 </div>
                 <div className="flex gap-6 flex-wrap">
                     {songs[0] && (
