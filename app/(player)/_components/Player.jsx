@@ -114,7 +114,7 @@ export default function Player({ params }) {
                     <p className="text-xs -mt-4 max-w-xl mx-auto">{data.singers || "unknown"}</p>
                 </div>
                 {!duration ? (
-                    <Skeleton className="h-2 w-[600px] rounded-full max-w-[400px]" />
+                    <Skeleton className="h-2 w-[600px] rounded-full max-w-[400px] mx-auto" />
                 ) : (
                     <Slider value={[currentTime]} max={duration} className="w-full max-w-[400px] mx-auto" />
                 )}
