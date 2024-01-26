@@ -128,7 +128,7 @@ export default function Player({ params }) {
                                 <Repeat className="h-4 w-4" />
                             </Button>
                             <div className="flex items-center justify-center gap-2">
-                                {/* <Button size="icon" onClick={changeRight}><RedoDot className="h-5 w-5" /></Button> */}
+                                <Button size="icon" onClick={changeRight}><RedoDot className="h-5 w-5" /></Button>
                                 <Button size="icon" onClick={togglePlayPause}>
                                     {playing ? (
                                         <Pause className="h-5 w-5" />
@@ -136,7 +136,7 @@ export default function Player({ params }) {
                                         <Play className="h-5 w-5" />
                                     )}
                                 </Button>
-                                {/* <Button size="icon" onClick={changeLeft}><UndoDot className="h-5 w-5 transition" /></Button> */}
+                                <Button size="icon" onClick={changeLeft}><UndoDot className="h-5 w-5 transition" /></Button>
                             </div>
                             <Button size="icon" variant="secondary" onClick={downloadSong}>
                                 {isDownloading ? (
