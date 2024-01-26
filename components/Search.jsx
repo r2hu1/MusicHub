@@ -1,24 +1,28 @@
 "use client";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Input } from "./ui/input";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function Search() {
     const [query, setQuery] = useState("");
-    const router = useRouter();
-
+    const linkRef = useRef();
+    const inpRef = useRef();
     const handleSubmit = (e) => {
         e.preventDefault();
-        if(!query){
+        if (!query) {
             router.push("/");
             return;
         };
-        router.replace("/search/" + query);
+        linkRef.current.click();
+        inpRef.current.blur();
         setQuery("");
     };
-    return(
-        <form onSubmit={handleSubmit}>
-            <Input value={query} onChange={(e) => setQuery(e.target.value)} autoComplete="off" className="w-full md:w-[300px]" type="search" name="query" placeholder="Search.."/>
-        </form>
+    return (
+        <>
+        <Link href={"/search/" + query} ref={linkRef}></Link>
+            <form onSubmit={handleSubmit}>
+                <Input ref={inpRef} value={query} onChange={(e) => setQuery(e.target.value)} autoComplete="off" className="w-full md:w-[300px]" type="search" name="query" placeholder="Search.." />
+            </form>
+        </>
     )
 }
