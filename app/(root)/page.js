@@ -9,7 +9,7 @@ export default function Page() {
   const romance = romanseSongs;
 
   return (
-    <div className="px-6 md:px-20 py-10 grid gap-5 -mb-10 md:w-fit md:mx-auto">
+    <div className="px-6 md:px-20 py-10 grid gap-5 -mb-10 md:w-fit md:mx-auto mt-3">
 
       <div className="-mb-2">
         <h1 className="font-bold text-lg">🔥 Trending<span className="text-primary">.</span></h1>
