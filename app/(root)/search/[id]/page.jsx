@@ -24,7 +24,7 @@ export default function Search({params}) {
     }, params);
 
     return (
-        <div className="py-20 -mt-5 px-6 md:px-20">
+        <div className="py-20 -mt-5 px-6 md:px-20 md:w-fit md:mx-auto">
             <div className="grid gap-4">
                 <div className="mt-2">
                     <h1 className="text-lg font-bold">Results<span className="text-primary">.</span></h1>
@@ -94,7 +94,7 @@ export default function Search({params}) {
                     <p className="-mt-1 text-xs">trending songs in india</p>
                 </div>
                 <ScrollArea className="whitespace-nowrap pb-4">
-                    <div className="flex gap-6 items-center md:justify-center">
+                    <div className="flex gap-6">
                         {rap.map((song) => (
                             <SongCard key={song.id} id={song.id} image={song.image} artist={song.singers || "unknown"} title={song.song} />
                         ))}
