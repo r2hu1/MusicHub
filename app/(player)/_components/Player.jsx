@@ -1,13 +1,12 @@
 "use client"
 import { Button } from "@/components/ui/button";
 import { getSongsById, getSongsLyricsById } from "@/lib/fetch";
-import { Download, X, Pause, Play, InfinityIcon, Forward, SkipForward, SkipBack, ReplyAll, ReplyAllIcon, RedoDot, UndoDot } from "lucide-react";
+import { Download, Pause, Play, RedoDot, UndoDot, Repeat, Loader2 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
-import { Progress } from "@/components/ui/progress"
 import { Slider } from "@/components/ui/slider";
-
+import toast from 'react-hot-toast';
 
 export default function Player({ params }) {
     const [data, setData] = useState([]);
@@ -15,7 +14,7 @@ export default function Player({ params }) {
     const audioRef = useRef(null);
     const [currentTime, setCurrentTime] = useState(0);
     const [duration, setDuration] = useState(0);
-    const [lyricsP, setLyricsP] = useState("");
+    const [isDownloading, setIsDownloading] = useState(false);
     const [isLooping, setIsLooping] = useState(false);
 
     const getSong = async () => {
@@ -24,11 +23,6 @@ export default function Player({ params }) {
         setData(data);
     };
 
-    const getLyrics = async () => {
-        const get = await getSongsLyricsById(params.id);
-        const data = await get.json();
-        setLyricsP(data.lyrics);
-    };
 
     const formatTime = (time) => {
         const minutes = Math.floor(time / 60);
@@ -46,6 +40,7 @@ export default function Player({ params }) {
     };
 
     const downloadSong = async () => {
+        setIsDownloading(true);
         const response = await fetch(data.media_url);
         const datas = await response.blob();
         const url = URL.createObjectURL(datas);
@@ -54,6 +49,8 @@ export default function Player({ params }) {
         a.download = `${data.song}.mp3`;
         a.click();
         URL.revokeObjectURL(url);
+        toast.success('downloaded');
+        setIsDownloading(false);
     };
 
     const handleSeek = (e) => {
@@ -75,7 +72,6 @@ export default function Player({ params }) {
     };
     useEffect(() => {
         getSong();
-        // getLyrics();
         const handleTimeUpdate = () => {
             try {
                 setCurrentTime(audioRef.current.currentTime);
@@ -113,11 +109,7 @@ export default function Player({ params }) {
                     )}
                     <p className="text-xs -mt-4 max-w-xl mx-auto">{data.singers || "unknown"}</p>
                 </div>
-                {!duration ? (
-                    <Skeleton className="h-2 w-[600px] rounded-full max-w-[400px] mx-auto" />
-                ) : (
-                    <Slider value={[currentTime]} max={duration} className="w-full max-w-[400px] mx-auto" />
-                )}
+                <Slider value={[currentTime]} max={duration} className="w-full max-w-[400px] mx-auto" />
                 {!duration ? (
                     <div className="-mt-6 -mb-3 w-full max-w-[400px] mx-auto flex items-center justify-between">
                         <Skeleton className="h-[9px] w-10" />
@@ -133,7 +125,7 @@ export default function Player({ params }) {
                     data.media_url ? (
                         <div className="flex items-center justify-center gap-4">
                             <Button size="icon" variant={isLooping ? "default" : "secondary"} onClick={loopSong}>
-                                <InfinityIcon className="h-4 w-4" />
+                                <Repeat className="h-4 w-4" />
                             </Button>
                             <div className="flex items-center justify-center gap-2">
                                 <Button size="icon" onClick={changeRight}><RedoDot className="h-5 w-5" /></Button>
@@ -147,7 +139,11 @@ export default function Player({ params }) {
                                 <Button size="icon" onClick={changeLeft}><UndoDot className="h-5 w-5 transition" /></Button>
                             </div>
                             <Button size="icon" variant="secondary" onClick={downloadSong}>
-                                <Download className="h-4 w-4" />
+                                {isDownloading ? (
+                                    <Loader2 className="h-4 w-4 animate-spin" />
+                                ) : (
+                                    <Download className="h-4 w-4" />
+                                )}
                             </Button>
                         </div>
                     ) : (
