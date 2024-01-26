@@ -1,9 +1,13 @@
+import { getSongsById } from "@/lib/fetch";
 import Player from "../_components/Player";
 
-export const metadata = {
-    title: "Listing Now",
-    description: "listing now on musichub!",
-};
+export const generateMetadata = async ({ params }) => {
+    const title = await getSongsById(params.id);
+    const data = await title.json();
+    return {
+        title: `${data.song}`
+    }
+}
 
 export default function Page({ params }) {
     return (
