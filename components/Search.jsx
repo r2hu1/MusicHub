@@ -9,7 +9,11 @@ export default function Search() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        router.push("/search/" + query);
+        if(!query){
+            router.push("/");
+            return;
+        };
+        router.replace("/search/" + query);
         setQuery("");
     };
     return(
