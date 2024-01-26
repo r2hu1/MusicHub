@@ -18,7 +18,7 @@ export default function Search() {
     };
     return(
         <form onSubmit={handleSubmit}>
-            <Input value={query} onChange={(e) => setQuery(e.target.value)} autoComplete="off" className="w-full" type="search" name="query" placeholder="Search.."/>
+            <Input value={query} onChange={(e) => setQuery(e.target.value)} autoComplete="off" className="w-full md:w-[300px]" type="search" name="query" placeholder="Search.."/>
         </form>
     )
 }
