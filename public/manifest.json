@@ -1,7 +1,7 @@
 {
     "name": "MusicHub",
     "short_name": "MusicHub",
-    "theme_color": "#2563eb",
+    "theme_color": "#020817",
     "background_color": "#2563eb",
     "start_url": "/",
     "display": "standalone",
