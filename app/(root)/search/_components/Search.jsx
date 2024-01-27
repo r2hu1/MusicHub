@@ -24,10 +24,10 @@ export default function Search({params}) {
     }, params);
 
     return (
-        <div className="py-20 -mt-5 px-6 md:px-20 md:w-fit md:mx-auto">
+        <div className="py-20 -mt-9 px-6 md:px-20 md:w-fit md:mx-auto">
             <div className="grid gap-4">
                 <div className="mt-2">
-                    <h1 className="text-lg font-bold">Results<span className="text-primary">.</span></h1>
+                    <h1 className="text-lg font-bold">🔎 Results<span className="text-primary">.</span></h1>
                     <p className="-mt-1 text-xs">search results for "{decodeURI(query)}"</p>
                 </div>
                 <ScrollArea className="whitespace-nowrap pb-4">
@@ -64,7 +64,7 @@ export default function Search({params}) {
                 </ScrollArea>
 
                 <div className="mt-5">
-                    <h1 className="text-lg font-bold">Artists<span className="text-primary">.</span></h1>
+                    <h1 className="text-lg font-bold">🎤 Artists<span className="text-primary">.</span></h1>
                     <p className="-mt-1 text-xs">artists related to "{decodeURI(query)}"</p>
                 </div>
                 <div className="flex gap-6 flex-wrap">
@@ -73,7 +73,7 @@ export default function Search({params}) {
                             {songs[0].singers && (
                                 <ArtistCard image={songs[0].image} name={songs[0].singers} />
                             )}
-                            {songs[1].singers && (
+                            {songs[1].singers != songs[0].singers && (
                                 <ArtistCard image={songs[1].image} name={songs[1].singers} />
                             )}
                             {!songs[1].singers && !songs[0].singers && (
