@@ -3,7 +3,7 @@ import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { lofiSongs, newSongs, relaxingSongs, romanseSongs } from "@/lib/catchedSong";
 
 export default function Page() {
-  const rap = newSongs;
+  const trending = newSongs;
   const relaxing = relaxingSongs;
   const lofi = lofiSongs;
   const romance = romanseSongs;
@@ -18,7 +18,7 @@ export default function Page() {
 
       <ScrollArea className="whitespace-nowrap pb-4">
         <div className="flex gap-6 items-center">
-          {rap.map((song) => (
+          {trending.map((song) => (
             <SongCard key={song.id} id={song.id} image={song.image} artist={song.singers || "unknown"} title={song.song} />
           ))}
         </div>

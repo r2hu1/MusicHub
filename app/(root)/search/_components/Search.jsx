@@ -89,7 +89,7 @@ export default function Search({params}) {
                     )}
                 </div>
 
-                <div className="mt-6">
+                <div className="mt-8">
                     <h1 className="font-bold text-lg">🔥 Trending<span className="text-primary">.</span></h1>
                     <p className="-mt-1 text-xs">trending songs in india</p>
                 </div>
