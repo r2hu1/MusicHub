@@ -10,10 +10,7 @@ const poppins = Poppins({
 });
 
 export const metadata = {
-  title: {
-    default: "Musichub",
-    template: "%s | Musichub",
-  },
+  title: "MusicHub",
   description: "Open-Source music web app.",
   icons: "/logo-musichub.webp",
   manifest: "/manifest.json",

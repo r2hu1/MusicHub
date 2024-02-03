@@ -58,4 +58,10 @@
   body {
     @apply bg-background text-foreground;
   }
+  ::-webkit-scrollbar{
+    @apply w-0 h-0;
+  }
+  ::-webkit-scrollbar-track{
+    @apply bg-transparent;
+  }
 }
