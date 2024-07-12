@@ -90,8 +90,6 @@ export default function Player({ params }) {
     }, []);
     return (
         <div className="mb-3 mt-2">
-            <div className="absolute inset-0 -z-10 h-full w-full bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:24px_24px]">
-                <div className={cn("absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-primary opacity-20 blur-[100px]", playing ? "animate-pulse" : "animate-none")}></div></div>
             <audio onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} onLoadedData={() => setDuration(audioRef.current.duration)} src={data.media_url} ref={audioRef}></audio>
             <div className="grid gap-6 px-6">
                 <div className="grid text-center place-content-center gap-3">
@@ -128,15 +126,15 @@ export default function Player({ params }) {
                                 <Repeat className="h-4 w-4" />
                             </Button>
                             <div className="flex items-center justify-center gap-2">
-                                <Button size="icon" onClick={changeRight}><RedoDot className="h-5 w-5" /></Button>
+                                <Button size="icon" onClick={changeRight}><RedoDot className="h-4 w-4" /></Button>
                                 <Button size="icon" onClick={togglePlayPause}>
                                     {playing ? (
-                                        <Pause className="h-5 w-5" />
+                                        <Pause className="h-4 w-4" />
                                     ) : (
-                                        <Play className="h-5 w-5" />
+                                        <Play className="h-4 w-4" />
                                     )}
                                 </Button>
-                                <Button size="icon" onClick={changeLeft}><UndoDot className="h-5 w-5 transition" /></Button>
+                                <Button size="icon" onClick={changeLeft}><UndoDot className="h-4 w-4 transition" /></Button>
                             </div>
                             <Button size="icon" variant="secondary" onClick={downloadSong}>
                                 {isDownloading ? (
