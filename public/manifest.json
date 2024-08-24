@@ -1,4 +1,6 @@
 {
+  "name": "Musichub",
+  "short_name": "Musichub",
   "icons": [
     {
       "src": "windows11/SmallTile.scale-100.png",
@@ -448,5 +450,10 @@
       "src": "ios/1024.png",
       "sizes": "1024x1024"
     }
-  ]
+  ],
+  "theme_color": "hsl(240, 10%, 3.9%)",
+  "background_color": "hsl(240, 10%, 3.9%)",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait"
 }
