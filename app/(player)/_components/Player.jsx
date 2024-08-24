@@ -1,7 +1,7 @@
 "use client"
 import { Button } from "@/components/ui/button";
 import { getSongsById, getSongsLyricsById } from "@/lib/fetch";
-import { Download, Pause, Play, RedoDot, UndoDot, Repeat, Loader2, Bookmark } from "lucide-react";
+import { Download, Pause, Play, RedoDot, UndoDot, Repeat, Loader2, Bookmark, BookmarkCheck } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
@@ -16,6 +16,7 @@ export default function Player({ params }) {
     const [duration, setDuration] = useState(0);
     const [isDownloading, setIsDownloading] = useState(false);
     const [isLooping, setIsLooping] = useState(false);
+    const [isSaved, setIsSaved] = useState(false);
 
     const getSong = async () => {
         const get = await getSongsById(params.id);
@@ -69,14 +70,24 @@ export default function Player({ params }) {
         }
     };
 
-    const changeRight = () => {
-        audioRef.current.currentTime = audioRef.current.currentTime + 10;
-    }
-    const changeLeft = () => {
-        audioRef.current.currentTime = audioRef.current.currentTime - 10;
+    const handleAddToBookmark = () => {
+        let exisn = localStorage.getItem("saved");
+        if (exisn != null && exisn.split(" ").find(e => e == params.id)) {
+            localStorage.setItem("saved", exisn.split(" ").filter(e => e != params.id).join(" "));
+            setIsSaved(false);
+            return toast.success('Removed from Bookmarks!');
+        }
+        setIsSaved(true);
+        localStorage.setItem("saved", `${exisn != null ? exisn : ""} ${params.id}`);
+        toast.success('Saved to Bookmarks!');
     };
+
     useEffect(() => {
         getSong();
+        let exisn = localStorage.getItem("saved");
+        if (exisn != null && exisn.split(" ").find(e => e == params.id)) {
+            setIsSaved(true);
+        }
         const handleTimeUpdate = () => {
             try {
                 setCurrentTime(audioRef.current.currentTime);
@@ -156,7 +167,7 @@ export default function Player({ params }) {
                                             )}
                                         </Button>
                                     </div>
-                                    <Button size="icon" variant="outline"><Bookmark className="h-4 w-4"/></Button>
+                                    <Button size="icon" variant="outline" onClick={handleAddToBookmark}>{!isSaved ? <Bookmark className="h-4 w-4" /> : <BookmarkCheck className="h-4 w-4" />}</Button>
                                 </div>
                             </div>
                         </div>
