@@ -1,12 +1,12 @@
-import { Poppins } from "next/font/google";
+import { Bricolage_Grotesque } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import NextTopLoader from 'nextjs-toploader';
-import { Toaster } from 'react-hot-toast';
+import { Toaster } from "sonner";
 
-const poppins = Poppins({
+const bricolage_grotesque = Bricolage_Grotesque({
   subsets: ["latin"],
-  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  weight: ["200", "300", "400", "500", "600", "700", "800"],
 });
 
 export const metadata = {
@@ -19,7 +19,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={poppins.className}>
+      <body className={bricolage_grotesque.className}>
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
@@ -27,7 +27,7 @@ export default function RootLayout({ children }) {
           disableTransitionOnChange
         >
           <NextTopLoader
-            color="hsl(253 91% 58%)"
+            color="hsl(var(--primary))"
             initialPosition={0.08}
             crawlSpeed={200}
             height={3}
@@ -35,14 +35,14 @@ export default function RootLayout({ children }) {
             showSpinner={false}
             easing="ease"
             speed={200}
-            shadow="0 0 10px hsl(253 91% 58%),0 0 15px hsl(253 91% 58%)"
+            shadow="0 0 10px hsl(var(--primary)),0 0 15px hsl(var(--primary))"
             template='<div class="bar" role="bar"><div class="peg"></div></div> 
         <div class="spinner" role="spinner"><div class="spinner-icon"></div></div>'
             zIndex={1600}
             showAtBottom={false}
           />
           {children}
-          <Toaster position="bottom-center"/>
+          <Toaster position="top-center"/>
         </ThemeProvider>
       </body>
     </html>

@@ -6,7 +6,7 @@ export default function RootLayout({ children }) {
     return (
         <main>
             <Header />
-            <div className="md:hidden block px-6">
+            <div className="md:hidden block px-6 mb-2">
                 <Search />
             </div>
             {children}

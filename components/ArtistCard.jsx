@@ -1,10 +1,13 @@
 import Link from "next/link";
 
-export default function ArtistCard({ image, name }) {
+export default function ArtistCard({ image, name, id }) {
     return (
-        <Link href={"/search/" + name}>
-            <div className="transition hover:bg-primary cursor-pointer hover:text-white bg-secondary py-3 rounded-md px-5 w-full flex flex-wrap items-center justify-center gap-4" title={name}>
-                <h1 className="text-sm">{name}</h1>
+        <Link href={"/search/" + `${name.split(" ")[0]}`}>
+            <div>
+                <img src={image} alt={name} className="rounded-2xl h-[100px] w-[100px] object-cover"/>
+            </div>
+            <div className="mt-2">
+                <h1 className="text-sm">{name.split(" ")[0] || null} {name.split(" ")[1] || null}</h1>
             </div>
         </Link>
     )

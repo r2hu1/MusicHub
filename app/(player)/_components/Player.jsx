@@ -1,12 +1,12 @@
 "use client"
 import { Button } from "@/components/ui/button";
 import { getSongsById, getSongsLyricsById } from "@/lib/fetch";
-import { Download, Pause, Play, RedoDot, UndoDot, Repeat, Loader2 } from "lucide-react";
+import { Download, Pause, Play, RedoDot, UndoDot, Repeat, Loader2, Bookmark } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 import { Slider } from "@/components/ui/slider";
-import toast from 'react-hot-toast';
+import { toast } from "sonner";
 
 export default function Player({ params }) {
     const [data, setData] = useState([]);
@@ -62,6 +62,11 @@ export default function Player({ params }) {
     const loopSong = () => {
         audioRef.current.loop = !audioRef.current.loop;
         setIsLooping(!isLooping);
+        if (isLooping) {
+            toast.success('Removed from Loop!');
+        } else {
+            toast.success('Added to Loop!');
+        }
     };
 
     const changeRight = () => {
@@ -89,74 +94,75 @@ export default function Player({ params }) {
         };
     }, []);
     return (
-        <div className="mb-3 mt-2">
+        <div className="mb-3 mt-5 px-6 md:px-20 lg:px-32">
             <audio onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} onLoadedData={() => setDuration(audioRef.current.duration)} src={data.media_url} ref={audioRef}></audio>
-            <div className="grid gap-6 px-6">
-                <div className="grid text-center place-content-center gap-3">
+            <div className="grid gap-6 w-full">
+                <div className="sm:flex grid gap-5 w-full">
                     <div>
                         {!data.image ? (
-                            <Skeleton className="w-[200px] rounded-full h-[200px] mx-auto" />
+                            <Skeleton className="w-[130px] rounded-2xl h-[150px]" />
                         ) : (
-                            <img src={data.image} className="h-full rounded-full max-w-[200px] object-cover mx-auto" />
+                            <img src={data.image} className="sm:h-[150px] rounded-2xl sm:w-[200px] w-full object-cover" />
                         )}
                     </div>
                     {!data.song ? (
-                        <Skeleton className="h-5 w-32 mx-auto mb-1" />
+                        <div className="flex flex-col justify-between w-full">
+                            <div>
+                                <Skeleton className="h-4 w-36 mb-2" />
+                                <Skeleton className="h-3 w-16 mb-4" />
+                            </div>
+                            <div>
+                                <Skeleton className="h-4 w-full rounded-full mb-2" />
+                                <div className="w-full flex items-center justify-between">
+                                    <Skeleton className="h-[9px] w-6" />
+                                    <Skeleton className="h-[9px] w-6" />
+                                </div>
+                                <div className="flex items-center gap-3 mt-3">
+                                    <Skeleton className="h-10 w-10" />
+                                    <Skeleton className="h-10 w-10" />
+                                    <Skeleton className="h-10 w-10" />
+                                </div>
+                            </div>
+                        </div>
                     ) : (
-                        <h1 className="text-lg mx-auto font-bold md:max-w-lg max-w-[260px]">{data.song}</h1>
+                        <div className="flex flex-col justify-between w-full">
+                            <div>
+                                <h1 className="text-xl font-bold md:max-w-lg max-w-[260px]">{data.song}</h1>
+                                <p className="text-xs text-muted-foreground">{data.singers || "unknown"}</p>
+                            </div>
+                            <div className="grid gap-2 w-full mt-5 sm:mt-0">
+                                <Slider onValueChange={handleSeek} value={[currentTime]} max={duration} className="w-full sm:max-w-[400px]" />
+                                <div className="w-full max-w-[400px] flex items-center justify-between">
+                                    <span className="text-xs">{formatTime(currentTime)}</span>
+                                    <span className="text-xs">{formatTime(duration)}</span>
+                                </div>
+                                <div className="flex items-center justify-between mt-2 md:max-w-[400px]">
+                                    <div className="flex items-center gap-3 sm:mt-0">
+                                        <Button size="icon" variant={isLooping ? "secondary" : "outline"} onClick={loopSong}>
+                                            <Repeat className="h-4 w-4" />
+                                        </Button>
+                                        <Button size="icon" onClick={togglePlayPause}>
+                                            {playing ? (
+                                                <Pause className="h-4 w-4" />
+                                            ) : (
+                                                <Play className="h-4 w-4" />
+                                            )}
+                                        </Button>
+                                        <Button size="icon" variant="outline" onClick={downloadSong}>
+                                            {isDownloading ? (
+                                                <Loader2 className="h-4 w-4 animate-spin" />
+                                            ) : (
+                                                <Download className="h-4 w-4" />
+                                            )}
+                                        </Button>
+                                    </div>
+                                    <Button size="icon" variant="outline"><Bookmark className="h-4 w-4"/></Button>
+                                </div>
+                            </div>
+                        </div>
                     )}
-                    <p className="text-xs -mt-4 max-w-xl mx-auto">{data.singers || "unknown"}</p>
                 </div>
-                <Slider onValueChange={handleSeek} value={[currentTime]} max={duration} className="w-full max-w-[400px] mx-auto" />
-                {!duration ? (
-                    <div className="-mt-6 -mb-3 w-full max-w-[400px] mx-auto flex items-center justify-between">
-                        <Skeleton className="h-[9px] w-10" />
-                        <Skeleton className="h-[9px] w-10" />
-                    </div>
-                ) : (
-                    <div className="-mt-6 -mb-3 w-full max-w-[400px] mx-auto flex items-center justify-between">
-                        <span className="text-xs">{formatTime(currentTime)}</span>
-                        <span className="text-xs">{formatTime(duration)}</span>
-                    </div>
-                )}
-                {
-                    data.media_url ? (
-                        <div className="flex items-center justify-center gap-4">
-                            <Button size="icon" variant={isLooping ? "default" : "secondary"} onClick={loopSong}>
-                                <Repeat className="h-4 w-4" />
-                            </Button>
-                            <div className="flex items-center justify-center gap-2">
-                                <Button size="icon" onClick={changeRight}><RedoDot className="h-4 w-4" /></Button>
-                                <Button size="icon" onClick={togglePlayPause}>
-                                    {playing ? (
-                                        <Pause className="h-4 w-4" />
-                                    ) : (
-                                        <Play className="h-4 w-4" />
-                                    )}
-                                </Button>
-                                <Button size="icon" onClick={changeLeft}><UndoDot className="h-4 w-4 transition" /></Button>
-                            </div>
-                            <Button size="icon" variant="secondary" onClick={downloadSong}>
-                                {isDownloading ? (
-                                    <Loader2 className="h-4 w-4 animate-spin" />
-                                ) : (
-                                    <Download className="h-4 w-4" />
-                                )}
-                            </Button>
-                        </div>
-                    ) : (
-                        <div className="flex items-center justify-center gap-4">
-                            <Skeleton className="h-10 w-10" />
-                            <div className="flex items-center justify-center gap-2">
-                                <Skeleton className="h-10 w-10" />
-                                <Skeleton className="h-10 w-10" />
-                                <Skeleton className="h-10 w-10" />
-                            </div>
-                            <Skeleton className="h-10 w-10" />
-                        </div>
-                    )
-                }
-            </div >
-        </div >
+            </div>
+        </div>
     )
 }

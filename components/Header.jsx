@@ -1,9 +1,10 @@
-import { Button } from "./ui/button";
-import { Star } from "lucide-react";
+import { Button, buttonVariants } from "./ui/button";
+import { Bookmark, Star } from "lucide-react";
 import Link from "next/link";
 import { ModeToggle } from "./ModeToggle";
 import Logo from "./Logo";
 import Search from "./Search";
+import { cn } from "@/lib/utils";
 
 export default function Header() {
     return (
@@ -13,8 +14,10 @@ export default function Header() {
                 <div className="hidden md:block">
                     <Search />
                 </div>
+                <Link href="/saved" className={cn(buttonVariants({ variant: "default" }), "gap-2")}>
+                    Saved <Bookmark className="w-4 h-4" />
+                </Link>
                 <ModeToggle />
-                <Button size="icon" asChild><Link href="https://github.com/r2hu1/musichub" target="_blank"><Star className="h-4 w-4"/></Link></Button>
             </div>
         </header>
     )
