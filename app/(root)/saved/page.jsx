@@ -27,7 +27,7 @@ export default function Page() {
             <div>
                 <h1 className="text-base font-medium">Saved Songs</h1>
                 <p className="text-xs text-muted-foreground">All of your Saved songs.</p>
-                {!loading && data.length >= 0 && (
+                {!loading && data.length > 0 && (
                     <ScrollArea className="rounded-md mt-4">
                         <div className="flex gap-3">
                             {data.map((song) => (
