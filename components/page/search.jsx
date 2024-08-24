@@ -1,7 +1,7 @@
 "use client";
 import { useRef, useState } from "react";
-import { Input } from "./ui/input";
 import Link from "next/link";
+import { Input } from "../ui/input";
 
 export default function Search() {
     const [query, setQuery] = useState("");

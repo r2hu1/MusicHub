@@ -1,6 +1,6 @@
-import Footer from "@/components/Footer";
-import Header from "@/components/Header";
-import Search from "@/components/Search";
+import Footer from "@/components/page/footer";
+import Header from "@/components/page/header";
+import Search from "@/components/page/search";
 
 export default function RootLayout({ children }) {
     return (

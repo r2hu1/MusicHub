@@ -1,4 +1,4 @@
-import SongCard from "@/components/SongCard";
+import SongCard from "@/components/cards/song";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { lofiSongs, newSongs, relaxingSongs, romanseSongs } from "@/lib/catchedSong";
 

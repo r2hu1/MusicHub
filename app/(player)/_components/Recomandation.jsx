@@ -1,6 +1,6 @@
 "use client"
 
-import SongCard from "@/components/SongCard";
+import SongCard from "@/components/cards/song";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Skeleton } from "@/components/ui/skeleton";
 import { getSongsSuggestions } from "@/lib/fetch";

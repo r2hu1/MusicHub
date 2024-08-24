@@ -1,6 +1,6 @@
 "use client";
-import ArtistCard from "@/components/ArtistCard";
-import SongCard from "@/components/SongCard";
+import ArtistCard from "@/components/cards/artist";
+import SongCard from "@/components/cards/song";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Skeleton } from "@/components/ui/skeleton";
 import { newSongs } from "@/lib/catchedSong";

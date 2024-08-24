@@ -1,10 +1,10 @@
-import { Button, buttonVariants } from "./ui/button";
 import { Bookmark, Star } from "lucide-react";
 import Link from "next/link";
-import { ModeToggle } from "./ModeToggle";
-import Logo from "./Logo";
-import Search from "./Search";
+import { ModeToggle } from "../ModeToggle";
+import Logo from "./logo";
 import { cn } from "@/lib/utils";
+import Search from "./search";
+import { buttonVariants } from "../ui/button";
 
 export default function Header() {
     return (
