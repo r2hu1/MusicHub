@@ -142,8 +142,8 @@ export default function Player({ params }) {
                                 <p className="text-xs text-muted-foreground">{data.singers || "unknown"}</p>
                             </div>
                             <div className="grid gap-2 w-full mt-5 sm:mt-0">
-                                <Slider onValueChange={handleSeek} value={[currentTime]} max={duration} className="w-full sm:max-w-[400px]" />
-                                <div className="w-full max-w-[400px] flex items-center justify-between">
+                                <Slider onValueChange={handleSeek} value={[currentTime]} max={duration} className="w-full md:max-w-[400px]" />
+                                <div className="w-full md:max-w-[400px] flex items-center justify-between">
                                     <span className="text-xs">{formatTime(currentTime)}</span>
                                     <span className="text-xs">{formatTime(duration)}</span>
                                 </div>
