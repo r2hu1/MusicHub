@@ -38,7 +38,7 @@ export default function Page() {
                     </ScrollArea>
                 )}
                 {!loading && data.length <= 0 && (
-                    <div className="h-[300px] w-full flex items-center justify-center text-center border border-border rounded-md">
+                    <div className="h-[300px] w-full flex items-center justify-center text-center border border-border rounded-md mt-5">
                         <p className="text-sm text-muted-foreground">No saved songs. <br /> Try saving some songs!</p>
                     </div>
                 )}
