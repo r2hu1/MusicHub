@@ -57,7 +57,7 @@ export default function Search({ params }) {
                                 <Skeleton className="h-4 w-28" />
                                 <Skeleton className="h-3 w-20 -mt-1" />
                             </div>
-                            <div className="grid place-items-center gap-2">
+                            <div className="grid gap-2">
                                 <Skeleton className="h-[200px] w-[200px]" />
                                 <Skeleton className="h-4 w-28" />
                                 <Skeleton className="h-3 w-20 -mt-1" />
@@ -77,6 +77,30 @@ export default function Search({ params }) {
                             <SongCard key={song.title} desc={song.description} id={song.id} image={song.image[2].url} title={song.title} artist={song.artist} />
                         ))}
                     </div>
+                    {!albums.length && (
+                        <div className="flex gap-6">
+                            <div className="grid gap-2">
+                                <Skeleton className="h-[200px] w-[200px]" />
+                                <Skeleton className="h-4 w-28" />
+                                <Skeleton className="h-3 w-20 -mt-1" />
+                            </div>
+                            <div className="grid gap-2">
+                                <Skeleton className="h-[200px] w-[200px]" />
+                                <Skeleton className="h-4 w-28" />
+                                <Skeleton className="h-3 w-20 -mt-1" />
+                            </div>
+                            <div className="grid gap-2">
+                                <Skeleton className="h-[200px] w-[200px]" />
+                                <Skeleton className="h-4 w-28" />
+                                <Skeleton className="h-3 w-20 -mt-1" />
+                            </div>
+                            <div className="grid gap-2">
+                                <Skeleton className="h-[200px] w-[200px]" />
+                                <Skeleton className="h-4 w-28" />
+                                <Skeleton className="h-3 w-20 -mt-1" />
+                            </div>
+                        </div>
+                    )}
                     <ScrollBar orientation="horizontal" className="hidden" />
                 </ScrollArea>
 

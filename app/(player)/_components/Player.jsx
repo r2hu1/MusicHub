@@ -100,7 +100,7 @@ export default function Player({ params }) {
                 <div className="sm:flex grid gap-5 w-full">
                     <div>
                         {!data.image ? (
-                            <Skeleton className="w-[130px] rounded-2xl h-[150px]" />
+                            <Skeleton className="md:w-[130px] rounded-2xl md:h-[150px] w-full h-[400px]" />
                         ) : (
                             <img src={data.image} className="sm:h-[150px] rounded-2xl sm:w-[200px] w-full object-cover" />
                         )}
