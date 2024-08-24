@@ -10,7 +10,7 @@ export default function SongCard({ title, image, artist, id, desc }) {
             </div>
             <div className="cursor-pointer">
                 <Link href={`/${id}`} className="mt-2 flex items-center justify-between">
-                    <h1 className="text-sm font-medium hover:opacity-70">{title.slice(0, 25)}{title.length > 25 && '...'}</h1>
+                    <h1 className="text-sm font-medium hover:opacity-70">{title.slice(0, 20)}{title.length > 20 && '...'}</h1>
                 </Link>
                 {desc && (
                     <p className="text-xs text-muted-foreground">{desc.slice(0,30)}</p>
