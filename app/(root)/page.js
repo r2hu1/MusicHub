@@ -5,7 +5,7 @@ import { lofiSongs, newSongs, relaxingSongs, romanseSongs } from "@/lib/catchedS
 export default function Page() {
 
   return (
-    <main className="px-6 py-5">
+    <main className="px-6 py-5 md:px-20 lg:px-32">
       <div>
         <h1 className="text-base font-medium">Most Popular</h1>
         <p className="text-xs text-muted-foreground">Most listened songs in this week.</p>

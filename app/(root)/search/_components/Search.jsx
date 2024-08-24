@@ -28,7 +28,7 @@ export default function Search({ params }) {
     }, params);
 
     return (
-        <div className="py-12 -mt-9 px-6 md:px-20 md:w-fit md:mx-auto">
+        <div className="py-12 -mt-9 px-6 md:px-20 lg:px-32">
             <div className="grid gap-4">
                 <div className="mt-2">
                     <h1 className="text-base font-medium">Search Results</h1>
