@@ -15,7 +15,6 @@ export default function Album({ id }) {
             .then(res => res.json())
             .then(data => {
                 setData(data.data);
-                console.log(data.data);
             });
     };
     useEffect(() => {

@@ -21,7 +21,6 @@ export default function Search({ params }) {
         setArtists(data.data.artists.results);
         setSongs(data.data.songs.results);
         setAlbums(data.data.albums.results)
-        console.log(data.data.albums.results)
     }
     useEffect(() => {
         getSongs();
