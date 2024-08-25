@@ -6,7 +6,7 @@ export const generateMetadata = async ({ params }) => {
     const title = await getSongsById(params.id);
     const data = await title.json();
     return {
-        title: `${data.song}`
+        title: `Now Playing - ${data.song}`
     }
 }
 

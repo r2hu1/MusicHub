@@ -2,7 +2,7 @@ import Search from "../_components/Search";
 
 export const generateMetadata = ({ params }) => {
     return {
-        title: `Search Results for ${decodeURI(params.id)}`,
+        title: `Search Results - ${decodeURI(params.id).toLocaleUpperCase()}`,
         description: `Viewing search results for ${decodeURI(params.id)}`,
     };
 };

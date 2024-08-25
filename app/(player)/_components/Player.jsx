@@ -1,7 +1,7 @@
 "use client"
 import { Button } from "@/components/ui/button";
 import { getSongsById, getSongsLyricsById } from "@/lib/fetch";
-import { Download, Pause, Play, RedoDot, UndoDot, Repeat, Loader2, Bookmark, BookmarkCheck } from "lucide-react";
+import { Download, Pause, Play, RedoDot, UndoDot, Repeat, Loader2, Bookmark, BookmarkCheck, Repeat1 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
@@ -149,8 +149,8 @@ export default function Player({ params }) {
                                 </div>
                                 <div className="flex items-center justify-between mt-2 md:max-w-[400px]">
                                     <div className="flex items-center gap-3 sm:mt-0">
-                                        <Button size="icon" variant={isLooping ? "secondary" : "outline"} onClick={loopSong}>
-                                            <Repeat className="h-4 w-4" />
+                                        <Button size="icon" variant="outline" onClick={loopSong}>
+                                            {!isLooping ? <Repeat className="h-4 w-4" /> : <Repeat1 className="h-4 w-4" />}
                                         </Button>
                                         <Button size="icon" onClick={togglePlayPause}>
                                             {playing ? (
