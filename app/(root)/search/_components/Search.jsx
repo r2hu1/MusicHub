@@ -39,35 +39,19 @@ export default function Search({ params }) {
                     <p className="text-xs text-muted-foreground">search results for "{decodeURI(query)}"</p>
                 </div>
                 <ScrollArea>
-                    <div className="flex gap-6">
-                        {songs.map((song) => (
+                    <div className="flex gap-3">
+                        {songs.length ? songs.map((song) => (
                             <SongCard key={song.id} id={song.id} image={song.image[2].url} artist={song.artists.primary[0].name || "unknown"} title={song.name} />
-                        ))}
+                        )) : (
+                            <>
+                                <SongCard />
+                                <SongCard />
+                                <SongCard />
+                                <SongCard />
+                                <SongCard />
+                            </>
+                        )}
                     </div>
-                    {!songs.length && (
-                        <div className="flex gap-6">
-                            <div className="grid gap-2">
-                                <Skeleton className="h-[200px] w-[200px]" />
-                                <Skeleton className="h-4 w-28" />
-                                <Skeleton className="h-3 w-20 -mt-1" />
-                            </div>
-                            <div className="grid gap-2">
-                                <Skeleton className="h-[200px] w-[200px]" />
-                                <Skeleton className="h-4 w-28" />
-                                <Skeleton className="h-3 w-20 -mt-1" />
-                            </div>
-                            <div className="grid gap-2">
-                                <Skeleton className="h-[200px] w-[200px]" />
-                                <Skeleton className="h-4 w-28" />
-                                <Skeleton className="h-3 w-20 -mt-1" />
-                            </div>
-                            <div className="grid gap-2">
-                                <Skeleton className="h-[200px] w-[200px]" />
-                                <Skeleton className="h-4 w-28" />
-                                <Skeleton className="h-3 w-20 -mt-1" />
-                            </div>
-                        </div>
-                    )}
                     <ScrollBar orientation="horizontal" className="hidden" />
                 </ScrollArea>
 
@@ -76,35 +60,19 @@ export default function Search({ params }) {
                     <p className="text-xs text-muted-foreground">Albums related to "{decodeURI(query)}"</p>
                 </div>
                 <ScrollArea className="whitespace-nowrap pb-4">
-                    <div className="flex gap-6">
-                        {albums.map((song) => (
+                    <div className="flex gap-3">
+                        {albums.length ? albums.map((song) => (
                             <SongCard key={song.id} desc={song.description || null} id={`album/${song.id}`} image={song.image[2].url} title={song.name} artist={song.artists.primary[0].name} />
-                        ))}
+                        )) : (
+                            <>
+                                <SongCard />
+                                <SongCard />
+                                <SongCard />
+                                <SongCard />
+                                <SongCard />
+                            </>
+                        )}
                     </div>
-                    {!albums.length && (
-                        <div className="flex gap-6">
-                            <div className="grid gap-2">
-                                <Skeleton className="h-[200px] w-[200px]" />
-                                <Skeleton className="h-4 w-28" />
-                                <Skeleton className="h-3 w-20 -mt-1" />
-                            </div>
-                            <div className="grid gap-2">
-                                <Skeleton className="h-[200px] w-[200px]" />
-                                <Skeleton className="h-4 w-28" />
-                                <Skeleton className="h-3 w-20 -mt-1" />
-                            </div>
-                            <div className="grid gap-2">
-                                <Skeleton className="h-[200px] w-[200px]" />
-                                <Skeleton className="h-4 w-28" />
-                                <Skeleton className="h-3 w-20 -mt-1" />
-                            </div>
-                            <div className="grid gap-2">
-                                <Skeleton className="h-[200px] w-[200px]" />
-                                <Skeleton className="h-4 w-28" />
-                                <Skeleton className="h-3 w-20 -mt-1" />
-                            </div>
-                        </div>
-                    )}
                     <ScrollBar orientation="horizontal" className="hidden" />
                 </ScrollArea>
 
@@ -122,15 +90,23 @@ export default function Search({ params }) {
                     ) : (
                         <div className="flex gap-3">
                             <div>
-                                <Skeleton className="h-[100px] w-[100px]" />
+                                <Skeleton className="h-[100px] w-[100px] rounded-2xl" />
                                 <Skeleton className="h-3 mt-2 w-10" />
                             </div>
                             <div>
-                                <Skeleton className="h-[100px] w-[100px]" />
+                                <Skeleton className="h-[100px] w-[100px] rounded-2xl" />
                                 <Skeleton className="h-3 mt-2 w-10" />
                             </div>
                             <div>
-                                <Skeleton className="h-[100px] w-[100px]" />
+                                <Skeleton className="h-[100px] w-[100px] rounded-2xl" />
+                                <Skeleton className="h-3 mt-2 w-10" />
+                            </div>
+                            <div>
+                                <Skeleton className="h-[100px] w-[100px] rounded-2xl" />
+                                <Skeleton className="h-3 mt-2 w-10" />
+                            </div>
+                            <div>
+                                <Skeleton className="h-[100px] w-[100px] rounded-2xl" />
                                 <Skeleton className="h-3 mt-2 w-10" />
                             </div>
                         </div>
