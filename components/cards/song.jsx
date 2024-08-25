@@ -7,7 +7,7 @@ export default function SongCard({ title, image, artist, id, desc }) {
             <div className="overflow-hidden rounded-md">
                 {image ? (
                     <Link href={`/${id}`}>
-                        <img src={image} alt={title} className="rounded-md transition hover:scale-105 cursor-pointer" />
+                        <img src={image} alt={title} className="h-[182px] w-full bg-secondary/60 rounded-md transition hover:scale-105 cursor-pointer" />
                     </Link>
                 ) : (
                     <Skeleton className="w-full h-[182px]" />
