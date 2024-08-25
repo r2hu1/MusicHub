@@ -4,7 +4,7 @@ import SongCard from "@/components/cards/song";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Skeleton } from "@/components/ui/skeleton";
 import { newSongs } from "@/lib/catchedSong";
-import { getSongsByQuery } from "@/lib/fetch";
+import { getAlbumById, getSongsByQuery, searchAlbumByQuery } from "@/lib/fetch";
 import { useEffect, useState } from "react";
 
 export default function Search({ params }) {
@@ -18,13 +18,18 @@ export default function Search({ params }) {
     const getSongs = async () => {
         const get = await getSongsByQuery(query);
         const data = await get.json();
-        setArtists(data.data.artists.results);
-        setSongs(data.data.songs.results);
-        setAlbums(data.data.albums.results)
-    }
+        setSongs(data.data.results);
+        setArtists(data.data.results)
+    };
+    const getAlbum = async () => {
+        const get = await searchAlbumByQuery(query);
+        const data = await get.json();
+        setAlbums(data.data.results);
+    };
     useEffect(() => {
         getSongs();
-    }, params);
+        getAlbum();
+    }, [params.id]);
 
     return (
         <div className="py-12 -mt-9 px-6 md:px-20 lg:px-32">
@@ -36,7 +41,7 @@ export default function Search({ params }) {
                 <ScrollArea>
                     <div className="flex gap-6">
                         {songs.map((song) => (
-                            <SongCard key={song.id} id={song.id} image={song.image[2].url} artist={song.singers || "unknown"} title={song.title} />
+                            <SongCard key={song.id} id={song.id} image={song.image[2].url} artist={song.artists.primary[0].name || "unknown"} title={song.name} />
                         ))}
                     </div>
                     {!songs.length && (
@@ -73,7 +78,7 @@ export default function Search({ params }) {
                 <ScrollArea className="whitespace-nowrap pb-4">
                     <div className="flex gap-6">
                         {albums.map((song) => (
-                            <SongCard key={song.title} desc={song.description} id={`album/${song.id}`} image={song.image[2].url} title={song.title} artist={song.artist} />
+                            <SongCard key={song.id} desc={song.description || null} id={`album/${song.id}`} image={song.image[2].url} title={song.name} artist={song.artists.primary[0].name} />
                         ))}
                     </div>
                     {!albums.length && (
@@ -107,15 +112,15 @@ export default function Search({ params }) {
                     <h1 className="text-base font-medium">Related Artists</h1>
                     <p className="text-xs text-muted-foreground">artists related to "{decodeURI(query)}"</p>
                 </div>
-                <div className="flex gap-6 flex-wrap">
+                <ScrollArea>
                     {artists.length > 0 ? (
-                        <div className="flex gap-4 flex-wrap">
-                            {artists.map((artist) => (
-                                <ArtistCard key={artist.id} id={artist.id} image={artist.image[2].url} name={artist.title} />
+                        <div className="flex gap-3">
+                            {[...new Set(artists.map(a => a.artists.primary[0].id))].map(id => (
+                                <ArtistCard key={id} id={id} image={artists.find(a => a.artists.primary[0].id === id).artists.primary[0].image[2]?.url || "https://github.githubassets.com/assets/mona-loading-dark-7701a7b97370.gif"} name={artists.find(a => a.artists.primary[0].id === id).artists.primary[0].name} />
                             ))}
                         </div>
                     ) : (
-                        <>
+                        <div className="flex gap-3">
                             <div>
                                 <Skeleton className="h-[100px] w-[100px]" />
                                 <Skeleton className="h-3 mt-2 w-10" />
@@ -128,10 +133,10 @@ export default function Search({ params }) {
                                 <Skeleton className="h-[100px] w-[100px]" />
                                 <Skeleton className="h-3 mt-2 w-10" />
                             </div>
-                        </>
+                        </div>
                     )}
-                </div>
-
+                    <ScrollBar orientation="horizontal" className="hidden" />
+                </ScrollArea>
             </div>
         </div>
     )

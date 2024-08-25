@@ -25,7 +25,7 @@ export default function Album({ id }) {
             {data.image ? (
                 <div>
                     <div className="md:flex gap-10">
-                        <img src={data.image[2].url} alt={data.name} className="w-full md:w-[200px] md:h-[200px] rounded-2xl" />
+                        <img src={data.image[2]?.url} alt={data.name} className="w-full md:w-[200px] md:h-[200px] rounded-2xl" />
                         <div className="mt-5 mb-1">
                             <h1 className="text-xl font-medium">{data.name}</h1>
                             <p className="text-sm text-muted-foreground mt-1">{data.description}</p>
