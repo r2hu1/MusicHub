@@ -15,8 +15,9 @@ export default function Page() {
             let data = await Promise.all(ids.map(id => getSongsById(id)));
             let songs = await Promise.all(data.map(song => song.json()));
             setData(songs.filter(song => song.song != null));
-            setLoading(false);
+            return setLoading(false);
         }
+        setLoading(false);
     };
     useEffect(() => {
         getData();
@@ -27,7 +28,7 @@ export default function Page() {
             <div>
                 <h1 className="text-base font-medium">Saved Songs</h1>
                 <p className="text-xs text-muted-foreground">All of your Saved songs.</p>
-                {!loading && data.length > 0 && (
+                {!loading && data.length >= 1 && (
                     <ScrollArea className="rounded-md mt-4">
                         <div className="flex gap-3">
                             {data.map((song) => (
