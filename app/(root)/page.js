@@ -1,6 +1,6 @@
 import SongCard from "@/components/cards/song";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-import { lofiSongs, newSongs, relaxingSongs, romanseSongs } from "@/lib/catchedSong";
+import { lofiSongs, nAlbums, newSongs, relaxingSongs, romanseSongs } from "@/lib/catchedSong";
 
 export default function Page() {
 
@@ -20,12 +20,12 @@ export default function Page() {
       </div>
 
       <div className="mt-8">
-        <h1 className="text-base font-medium">Relaxing</h1>
-        <p className="text-xs text-muted-foreground">Most listened relaxing songs.</p>
+        <h1 className="text-base font-medium">Albums</h1>
+        <p className="text-xs text-muted-foreground">Most played recent albums.</p>
         <ScrollArea className="rounded-md mt-4">
           <div className="flex gap-3">
-            {relaxingSongs.map((song) => (
-              <SongCard key={song.id} image={song.image} album={song.album} title={song.song} artist={song.primary_artists} id={song.id} />
+            {nAlbums.map((song) => (
+              <SongCard key={song.id} id={`album/${song.id}`} image={song.image} title={song.name} artist={song.artists.primary[0].name} />
             ))}
           </div>
           <ScrollBar orientation="horizontal" className="hidden" />
