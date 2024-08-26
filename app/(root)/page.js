@@ -30,7 +30,7 @@ export default function Page() {
 
   useEffect(() => {
     getSongs("latest", "latest");
-    getSongs("popular", "popular");
+    getSongs("action", "popular");
     getAlbum();
   }, []);
 
