@@ -17,7 +17,7 @@ export default function Page() {
     console.log(data.data.results);
     if (type === "latest") {
       setLatest(data.data.results);
-    } else if (type === "popular) {
+    } else if (type === "popular") {
       setPopular(data.data.results);
     }
   };
