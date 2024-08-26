@@ -32,7 +32,7 @@ export default function Recomandation({ id }) {
                     <div>
                         <div className="flex gap-3">
                             {data.map((song) => (
-                                <SongCard key={song.id} image={song.image[2].url} album={song.album.name} title={song.name} artist={song.artists.primary[0].name} id={song.id} />
+                                <SongCard key={song.id} image={song.image[2].url} album={song.album.name} title={song.name} artist={song.artists.primary[0]?.name || "unknown"} id={song.id} />
                             ))}
                         </div>
                     </div>
