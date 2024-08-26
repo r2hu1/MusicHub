@@ -68,7 +68,7 @@ export default function Page() {
         <ScrollArea className="rounded-md mt-4">
           <div className="flex gap-3">
             {popular.length ? popular.map((song) => (
-              <SongCard key={song.id} id={`/${song.id}`} image={song.image[2].url} title={song.name} artist={song.artists.primary[0].name} />
+              <SongCard key={song.id} id={song.id} image={song.image[2].url} title={song.name} artist={song.artists.primary[0].name} />
             )) : (
               <>
                 <SongCard />
@@ -94,7 +94,7 @@ export default function Page() {
         <ScrollArea className="rounded-md mt-4">
           <div className="flex gap-3">
             {albums.length ? albums.map((song) => (
-              <SongCard key={song.id} image={song.image[2].url} album={song.album} title={song.name} artist={song.artists.primary[0].name} id={song.id} />
+              <SongCard key={song.id} image={song.image[2].url} album={song.album} title={song.name} artist={song.artists.primary[0].name} id={`album/${song.id}`} />
             )) : (
               <>
                 <SongCard />
