@@ -25,7 +25,7 @@ export default function Page() {
         <ScrollArea className="rounded-md mt-4">
           <div className="flex gap-3">
             {nAlbums.map((song) => (
-              <SongCard key={song.id} id={`album/${song.id}`} image={song.image} title={song.name} artist={song.artists.primary[0].name} />
+              <SongCard key={song.id} desc={`${song.description.slice(0, 28)}...`} id={`album/${song.id}`} image={song.image} title={song.name} artist={song.artists.primary[0].name} />
             ))}
           </div>
           <ScrollBar orientation="horizontal" className="hidden" />
