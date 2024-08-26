@@ -452,7 +452,7 @@
     }
   ],
   "theme_color": "hsl(240, 10%, 3.9%)",
-  "background_color": "hsl(240, 10%, 3.9%)",
+  "background_color": "#000000",
   "start_url": "/",
   "display": "standalone",
   "orientation": "portrait"
