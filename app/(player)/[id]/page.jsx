@@ -13,7 +13,7 @@ export const generateMetadata = async ({ params }) => {
 export default function Page({ params }) {
     return (
         <div>
-            <Player params={params} />
+            <Player id={params.id} />
             <Recomandation id={params.id} />
         </div>
     )

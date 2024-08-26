@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 import { Slider } from "@/components/ui/slider";
 import { toast } from "sonner";
 
-export default function Player({ params }) {
+export default function Player({ id }) {
     const [data, setData] = useState([]);
     const [playing, setPlaying] = useState(false);
     const audioRef = useRef(null);
@@ -19,7 +19,7 @@ export default function Player({ params }) {
     const [isSaved, setIsSaved] = useState(false);
 
     const getSong = async () => {
-        const get = await getSongsById(params.id);
+        const get = await getSongsById(id);
         const data = await get.json();
         setData(data);
     };
@@ -72,20 +72,20 @@ export default function Player({ params }) {
 
     const handleAddToBookmark = () => {
         let exisn = localStorage.getItem("saved");
-        if (exisn != null && exisn.split(" ").find(e => e == params.id)) {
-            localStorage.setItem("saved", exisn.split(" ").filter(e => e != params.id).join(" "));
+        if (exisn != null && exisn.split(" ").find(e => e == id)) {
+            localStorage.setItem("saved", exisn.split(" ").filter(e => e != id).join(" "));
             setIsSaved(false);
             return toast.success('Removed from Bookmarks!');
         }
         setIsSaved(true);
-        localStorage.setItem("saved", `${exisn != null ? exisn : ""} ${params.id}`);
+        localStorage.setItem("saved", `${exisn != null ? exisn : ""} ${id}`);
         toast.success('Saved to Bookmarks!');
     };
 
     useEffect(() => {
         getSong();
         let exisn = localStorage.getItem("saved");
-        if (exisn != null && exisn.split(" ").find(e => e == params.id)) {
+        if (exisn != null && exisn.split(" ").find(e => e == id)) {
             setIsSaved(true);
         }
         const handleTimeUpdate = () => {
