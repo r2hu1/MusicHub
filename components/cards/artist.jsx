@@ -6,7 +6,7 @@ export default function ArtistCard({ image, name, id }) {
             <div className="overflow-hidden h-[100px] w-[100px] rounded-md">
                 <img src={image} alt={name} className="hover:scale-105 transition cursor-pointer rounded-md h-[100px] min-w-[100px] object-cover"/>
             </div>
-            <div className="mt-1.5">
+            <div className="mt-2">
                 <h1 className="text-sm max-w-[100px] text-ellipsis text-nowrap overflow-hidden">{name.split(" ")[0] || null} {name.split(" ")[1] || null}</h1>
             </div>
         </Link>
