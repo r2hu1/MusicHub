@@ -104,7 +104,7 @@ export default function AdvanceSearch() {
                                 <div className="mb-2">
                                     <h1 className="text-sm text-foreground/70">Search results for <span className="bg-primary text-primary-foreground">{query}</span></h1>
                                 </div>
-                                <ScrollArea className="h-[300px]">
+                                <ScrollArea className="max-h-[300px]">
                                     <div className="flex flex-col gap-2">
                                         {data.length > 0 && data.map((song) => (
                                             <Link className="w-full hover:bg-secondary/30 border border-border rounded-md p-3 flex items-center justify-between gap-3" key={song.id} href={`/${song.id}`}>
