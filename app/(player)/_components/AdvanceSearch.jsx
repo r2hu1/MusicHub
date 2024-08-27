@@ -77,7 +77,7 @@ export default function AdvanceSearch() {
                 />
                 <CommandList>
                     <CommandGroup>
-                        {query && (
+                        {query != "" && (
                             <>
                                 <Link href={`/search/${query}`} passHref>
                                     <CommandItem>
