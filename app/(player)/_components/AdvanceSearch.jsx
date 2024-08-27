@@ -75,8 +75,8 @@ export default function AdvanceSearch() {
                     <CredenzaHeader>
                         <CredenzaTitle className="text-left flex gap-2">
                             <Input autoFocus={query == ""} value={query} onChange={(e) => setQuery(e.target.value)} className="w-full" type="search" name="query" placeholder="Search for songs by name..." autoComplete="off" />
-                            <Button className="min-w-10" size="icon" disabled={query == ""} asChild>
-                                <Link href={`/search/${query}`}>
+                            <Button className="min-w-10" size="icon" asChild>
+                                <Link href={`/search/${query}`} disabled={query == ""}>
                                      <Search className="h-4 w-4" />
                                  </Link>
                             </Button>
