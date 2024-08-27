@@ -82,7 +82,7 @@ export default function AdvanceSearch() {
                             <Input value={query} onChange={(e) => setQuery(e.target.value)} className="w-full" type="search" name="query" placeholder="Search for songs by name..." autoComplete="off" />
                         </CredenzaTitle>
                     </CredenzaHeader>
-                    <CredenzaBody className="text-left">
+                    <CredenzaBody className="text-left grid gap-2">
                         {loading && (
                             <div className="flex h-400 w-full items-center justify-center text-sm text-muted-foreground">
                                 <Loader className="mr-2 h-4 w-4 animate-spin" />
@@ -101,7 +101,7 @@ export default function AdvanceSearch() {
                         )}
                         {query && !loading && data.length > 0 && (
                             <>
-                                <div className="mb-2">
+                                <div>
                                     <h1 className="text-sm text-foreground/70">Search results for <span className="bg-primary text-primary-foreground">{query}</span></h1>
                                 </div>
                                 <ScrollArea className="h-[400px]">
