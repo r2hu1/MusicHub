@@ -52,7 +52,7 @@ export default function AdvanceSearch() {
         if (query) {
             const handler = setTimeout(() => {
                 getSongs();
-            }, 300); // Debounce to avoid too many requests
+            }, 100); // Debounce to avoid too many requests
 
             return () => {
                 clearTimeout(handler);
