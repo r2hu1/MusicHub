@@ -79,12 +79,12 @@ export default function AdvanceSearch() {
                 <CredenzaContent>
                     <CredenzaHeader>
                         <CredenzaTitle className="text-left">
-                            <Input value={query} onChange={(e) => setQuery(e.target.value)} className="w-full" type="search" name="query" placeholder="Search for songs by name..." autoComplete="off" />
+                            <Input autoFocus value={query} onChange={(e) => setQuery(e.target.value)} className="w-full" type="search" name="query" placeholder="Search for songs by name..." autoComplete="off" />
                         </CredenzaTitle>
                     </CredenzaHeader>
                     <CredenzaBody className="text-left grid gap-2 mb-5">
                         {loading && (
-                            <div className="flex h-400 w-full items-center justify-center text-sm text-muted-foreground">
+                            <div className="flex h-[400px] w-full items-center justify-center text-sm text-muted-foreground">
                                 <Loader className="mr-2 h-4 w-4 animate-spin" />
                                 Searching...
                             </div>
