@@ -84,18 +84,18 @@ export default function AdvanceSearch() {
                     </CredenzaHeader>
                     <CredenzaBody className="text-left">
                         {loading && (
-                            <div className="flex h-32 w-full items-center justify-center text-sm text-muted-foreground">
+                            <div className="flex h-400 w-full items-center justify-center text-sm text-muted-foreground">
                                 <Loader className="mr-2 h-4 w-4 animate-spin" />
                                 Searching...
                             </div>
                         )}
                         {!loading && data.length === 0 && query && (
-                            <div className="flex items-center justify-center h-[200px]">
+                            <div className="flex items-center justify-center h-[400px]">
                                 <p className="text-sm text-muted-foreground">No results found!</p>
                             </div>
                         )}
                         {!query && !loading && (
-                            <div className="flex items-center justify-center h-[200px]">
+                            <div className="flex items-center justify-center h-[400px]">
                                 <p className="text-sm text-muted-foreground">Type something to search..</p>
                             </div>
                         )}
