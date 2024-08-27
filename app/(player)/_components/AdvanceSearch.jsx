@@ -16,6 +16,8 @@ import Link from "next/link";
 import { getSongsByQuery } from "@/lib/fetch";
 import { Loader } from "lucide-react";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import { Button } from "@/components/ui/button";
+import { Play } from "lucide-react";
 
 export default function AdvanceSearch() {
     const [query, setQuery] = useState("");
@@ -99,20 +101,23 @@ export default function AdvanceSearch() {
                         )}
                         {query && !loading && data.length > 0 && (
                             <>
-                            <div className="mb-2">
-                                <h1 className="text-sm text-foreground/70">Search results for <span className="bg-primary text-primary-foreground">{query}</span></h1>
-                            </div>
+                                <div className="mb-2">
+                                    <h1 className="text-sm text-foreground/70">Search results for <span className="bg-primary text-primary-foreground">{query}</span></h1>
+                                </div>
                                 <ScrollArea className="h-[300px]">
                                     <div className="flex flex-col gap-2">
                                         {data.length > 0 && data.map((song) => (
-                                            <Link className="w-full hover:bg-secondary/30 border border-border rounded-md p-3 flex items-center gap-3" key={song.id} href={`/${song.id}`}>
-                                                <img src={song.image[2].url} alt={song.name} className="w-8 h-8 rounded-md" />
-                                                <p className="text-sm grid">
-                                                    {song.name}
-                                                    <span className="text-muted-foreground">
-                                                        {song.artists.primary[0]?.name || "unknown"}
-                                                    </span>
-                                                </p>
+                                            <Link className="w-full hover:bg-secondary/30 border border-border rounded-md p-3 flex items-center justify-between gap-3" key={song.id} href={`/${song.id}`}>
+                                                <div className="flex items-center gap-3">
+                                                    <img src={song.image[2].url} alt={song.name} className="w-8 h-8 rounded-md" />
+                                                    <p className="text-sm grid">
+                                                        {song.name}
+                                                        <span className="text-muted-foreground">
+                                                            {song.artists.primary[0]?.name || "unknown"}
+                                                        </span>
+                                                    </p>
+                                                </div>
+                                                <Button size="icon" variant="outline"><Play className="h-4 w-4" /></Button>
                                             </Link>
                                         ))}
                                     </div>
