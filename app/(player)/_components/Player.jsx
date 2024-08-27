@@ -10,7 +10,7 @@ import { toast } from "sonner";
 
 export default function Player({ id }) {
     const [data, setData] = useState([]);
-    const [playing, setPlaying] = useState(false);
+    const [playing, setPlaying] = useState(true);
     const audioRef = useRef(null);
     const [currentTime, setCurrentTime] = useState(0);
     const [duration, setDuration] = useState(0);
@@ -113,7 +113,7 @@ export default function Player({ id }) {
     }, []);
     return (
         <div className="mb-3 mt-5">
-            <audio onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} onLoadedData={() => setDuration(audioRef.current.duration)} src={audioURL} ref={audioRef}></audio>
+            <audio onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} onLoadedData={() => setDuration(audioRef.current.duration)} autoPlay={playing} src={audioURL} ref={audioRef}></audio>
             <div className="grid gap-6 w-full">
                 <div className="sm:flex px-6 md:px-20 lg:px-32 grid gap-5 w-full">
                     <div>
