@@ -24,7 +24,6 @@ export default function Player({ id }) {
         setData(data);
     };
 
-
     const formatTime = (time) => {
         const minutes = Math.floor(time / 60);
         const seconds = Math.floor(time % 60);
@@ -111,7 +110,7 @@ export default function Player({ id }) {
                 <div className="sm:flex px-6 md:px-20 lg:px-32 grid gap-5 w-full">
                     <div>
                         {!data.image ? (
-                            <Skeleton className="md:w-[130px] rounded-2xl md:h-[150px] w-full h-[400px]" />
+                            <Skeleton className="md:w-[130px] rounded-2xl md:h-[150px] w-full h-[370px]" />
                         ) : (
                             <img src={data.image} className="sm:h-[150px] h-full bg-secondary/50 rounded-2xl sm:w-[200px] w-full object-cover" />
                         )}

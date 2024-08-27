@@ -56,13 +56,13 @@ export default function Search({ params }) {
                 </ScrollArea>
 
                 <div className="mt-4">
-                    <h1 className="font-medium text-base">Albums</h1>
+                    <h1 className="font-medium text-base">Related Albums</h1>
                     <p className="text-xs text-muted-foreground">Albums related to "{decodeURI(query)}"</p>
                 </div>
                 <ScrollArea className="whitespace-nowrap pb-4">
                     <div className="flex gap-3">
                         {albums.length ? albums.map((song) => (
-                            <SongCard key={song.id} desc={song.description || null} id={`album/${song.id}`} image={song.image[2].url} title={song.name} artist={song.artists.primary[0].name} />
+                            <SongCard key={song.id} desc={song.description || null} id={`album/${song.id}`} image={song.image[2].url} title={song.name} artist={song.artists.primary[0]?.name || "unknown"} />
                         )) : (
                             <>
                                 <SongCard />
@@ -84,7 +84,7 @@ export default function Search({ params }) {
                     {artists.length > 0 ? (
                         <div className="flex gap-3">
                             {[...new Set(artists.map(a => a.artists.primary[0].id))].map(id => (
-                                <ArtistCard key={id} id={id} image={artists.find(a => a.artists.primary[0].id === id).artists.primary[0].image[2]?.url || "https://github.githubassets.com/assets/mona-loading-dark-7701a7b97370.gif"} name={artists.find(a => a.artists.primary[0].id === id).artists.primary[0].name} />
+                                <ArtistCard key={id} id={id} image={artists.find(a => a.artists.primary[0].id === id).artists.primary[0].image[2]?.url || `https://az-avatar.vercel.app/api/avatar/?bgColor=0f0f0f0&fontSize=60&text=${artists.find(a => a.artists.primary[0].id === id).artists.primary[0].name.split("")[0].toUpperCase() || "U"}`} name={artists.find(a => a.artists.primary[0].id === id).artists.primary[0].name} />
                             ))}
                         </div>
                     ) : (
