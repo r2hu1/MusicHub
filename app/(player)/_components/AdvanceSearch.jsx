@@ -2,16 +2,20 @@
 import { Input } from "@/components/ui/input";
 import { useEffect, useState } from "react";
 import {
-    CommandDialog,
-    CommandEmpty,
-    CommandGroup,
-    CommandInput,
-    CommandItem,
-    CommandList,
-} from "@/components/ui/command";
+    Credenza,
+    CredenzaBody,
+    CredenzaClose,
+    CredenzaContent,
+    CredenzaDescription,
+    CredenzaFooter,
+    CredenzaHeader,
+    CredenzaTitle,
+    CredenzaTrigger,
+} from "@/components/ui/credenza";
 import Link from "next/link";
 import { getSongsByQuery } from "@/lib/fetch";
 import { Loader } from "lucide-react";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 
 export default function AdvanceSearch() {
     const [query, setQuery] = useState("");
@@ -24,15 +28,15 @@ export default function AdvanceSearch() {
             setData([]);
             return;
         }
-        
+
         setLoading(true);
         try {
             const response = await getSongsByQuery(query);
             const result = await response.json();
-            
+
             // Debugging logs
             console.log("API response:", result);
-            
+
             // Check if the expected data structure exists
             if (result.data && result.data.results) {
                 setData(result.data.results);
@@ -52,7 +56,7 @@ export default function AdvanceSearch() {
         if (query) {
             const handler = setTimeout(() => {
                 getSongs();
-            }, 100); // Debounce to avoid too many requests
+            }, 300); // Debounce to avoid too many requests
 
             return () => {
                 clearTimeout(handler);
@@ -63,68 +67,61 @@ export default function AdvanceSearch() {
     }, [query]);
 
     return (
-        <div className="px-6 !mb-10">
-            <Input
-                placeholder="Search for song, artist..."
-                readOnly
-                onClick={() => setOpen(true)}
-            />
-            <CommandDialog open={open} onOpenChange={setOpen}>
-                <CommandInput
-                    placeholder="Search for song, artist..."
-                    value={query}
-                    onValueChange={setQuery}
-                />
-                <CommandList>
-                    <CommandGroup>
-                        {query != "" && (
+        <div className="px-6 !mb-10 md:px-20 lg:px-32">
+            <Credenza>
+                <CredenzaTrigger asChild>
+                    <div className="flex h-10 w-full items-center rounded-md border border-input bg-background px-3 py-2 text-sm text-muted-foreground">
+                        Look for songs by name...
+                    </div>
+                </CredenzaTrigger>
+                <CredenzaContent>
+                    <CredenzaHeader>
+                        <CredenzaTitle className="text-left">
+                            <Input value={query} onChange={(e) => setQuery(e.target.value)} className="w-full" type="search" name="query" placeholder="Search for songs by name..." autoComplete="off" />
+                        </CredenzaTitle>
+                    </CredenzaHeader>
+                    <CredenzaBody className="text-left">
+                        {loading && (
+                            <div className="flex h-32 w-full items-center justify-center text-sm text-muted-foreground">
+                                <Loader className="mr-2 h-4 w-4 animate-spin" />
+                                Searching...
+                            </div>
+                        )}
+                        {!loading && data.length === 0 && query && (
+                            <div className="flex items-center justify-center h-[200px]">
+                                <p className="text-sm text-muted-foreground">No results found!</p>
+                            </div>
+                        )}
+                        {!query && !loading && (
+                            <div className="flex items-center justify-center h-[200px]">
+                                <p className="text-sm text-muted-foreground">Type something to search..</p>
+                            </div>
+                        )}
+                        {query && !loading && data.length > 0 && (
                             <>
-                                <Link href={`/search/${query}`} passHref>
-                                    <CommandItem>
-                                        Search for{" "}
-                                        <span className="font-bold bg-primary text-primary-foreground ml-1.5">
-                                            {query}
-                                        </span>
-                                    </CommandItem>
-                                </Link>
-                                {loading ? (
-                                    <div className="flex items-center justify-center p-4">
-                                        <Loader className="w-6 h-6 animate-spin" />
-                                    </div>
-                                ) : data.length > 0 ? (
-                                    data.map((song) => (
-                                        <Link href={`/${song.id}`} key={song.id} passHref>
-                                            <CommandItem className="gap-2">
-                                                <img
-                                                    src={song.image[2]?.url || '/placeholder-image.png'}
-                                                    alt={song.name}
-                                                    className="w-8 h-8 rounded-md"
-                                                />
-                                                <p className="grid">
+                            <div className="mb-2">
+                                <h1 className="text-sm text-foreground/70">Search results for <span className="bg-primary text-primary-foreground">{query}</span></h1>
+                            </div>
+                                <ScrollArea className="h-[300px]">
+                                    <div className="flex flex-col gap-2">
+                                        {data.length > 0 && data.map((song) => (
+                                            <Link className="w-full hover:bg-secondary/30 border border-border rounded-md p-3 flex items-center gap-3" key={song.id} href={`/${song.id}`}>
+                                                <img src={song.image[2].url} alt={song.name} className="w-8 h-8 rounded-md" />
+                                                <p className="text-sm grid">
                                                     {song.name}
-                                                    <span className="text-xs text-muted-foreground">
-                                                        by{" "}
-                                                        <span className="text-foreground/70">
-                                                            {song.artists?.primary[0]?.name || "unknown"}
-                                                        </span>
+                                                    <span className="text-muted-foreground">
+                                                        {song.artists.primary[0]?.name || "unknown"}
                                                     </span>
                                                 </p>
-                                            </CommandItem>
-                                        </Link>
-                                    ))
-                                ) : (
-                                    <CommandEmpty>No results found.</CommandEmpty>
-                                )}
+                                            </Link>
+                                        ))}
+                                    </div>
+                                </ScrollArea>
                             </>
                         )}
-                    </CommandGroup>
-                    {!query && (
-                        <div className="text-sm text-muted-foreground h-32 -mt-2 text-center flex items-center justify-center">
-                            Type something to search.
-                        </div>
-                    )}
-                </CommandList>
-            </CommandDialog>
+                    </CredenzaBody>
+                </CredenzaContent>
+            </Credenza>
         </div>
     );
 }
