@@ -109,7 +109,7 @@ export default function AdvanceSearch() {
                                         {data.length > 0 && data.map((song) => (
                                             <Link className="w-full hover:bg-secondary/30 border border-border rounded-md p-3 flex items-center justify-between gap-3" key={song.id} href={`/${song.id}`}>
                                                 <div className="flex items-center gap-3">
-                                                    <img src={song.image[2].url} alt={song.name} className="w-8 h-8 rounded-md" />
+                                                    <img src={song.image[2].url} alt={song.name} className="bg-secondary/50 w-8 h-8 rounded-md" />
                                                     <p className="text-sm grid">
                                                         {song.name}
                                                         <span className="text-muted-foreground">
