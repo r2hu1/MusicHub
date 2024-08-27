@@ -49,12 +49,12 @@ export default function Player({ id }) {
 
     const downloadSong = async () => {
         setIsDownloading(true);
-        const response = await fetch(data.media_url);
+        const response = await fetch(audioURL);
         const datas = await response.blob();
         const url = URL.createObjectURL(datas);
         const a = document.createElement('a');
         a.href = url;
-        a.download = `${data.song}.mp3`;
+        a.download = `${data.name}.mp3`;
         a.click();
         URL.revokeObjectURL(url);
         toast.success('downloaded');
