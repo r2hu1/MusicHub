@@ -3,12 +3,10 @@ import ArtistCard from "@/components/cards/artist";
 import SongCard from "@/components/cards/song";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Skeleton } from "@/components/ui/skeleton";
-import { newSongs } from "@/lib/catchedSong";
 import { getAlbumById, getSongsByQuery, searchAlbumByQuery } from "@/lib/fetch";
 import { useEffect, useState } from "react";
 
 export default function Search({ params }) {
-    const rap = newSongs;
     const query = params.id;
 
     const [artists, setArtists] = useState([]);

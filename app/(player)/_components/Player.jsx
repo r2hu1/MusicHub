@@ -17,11 +17,19 @@ export default function Player({ id }) {
     const [isDownloading, setIsDownloading] = useState(false);
     const [isLooping, setIsLooping] = useState(false);
     const [isSaved, setIsSaved] = useState(false);
+    const [audioURL, setAudioURL] = useState("");
 
     const getSong = async () => {
         const get = await getSongsById(id);
         const data = await get.json();
-        setData(data);
+        setData(data.data[0]);
+        if (data?.data[0]?.downloadUrl[2]?.url) {
+            setAudioURL(data?.data[0]?.downloadUrl[2]?.url);
+        } else if (data?.data[0]?.downloadUrl[1]?.url) {
+            setAudioURL(data?.data[0]?.downloadUrl[1]?.url);
+        } else {
+            setAudioURL(data?.data[0]?.downloadUrl[0]?.url);
+        }
     };
 
     const formatTime = (time) => {
@@ -105,17 +113,17 @@ export default function Player({ id }) {
     }, []);
     return (
         <div className="mb-3 mt-5">
-            <audio onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} onLoadedData={() => setDuration(audioRef.current.duration)} src={data.media_url} ref={audioRef}></audio>
+            <audio onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} onLoadedData={() => setDuration(audioRef.current.duration)} src={audioURL} ref={audioRef}></audio>
             <div className="grid gap-6 w-full">
                 <div className="sm:flex px-6 md:px-20 lg:px-32 grid gap-5 w-full">
                     <div>
-                        {!data.image ? (
+                        {data.length <= 0 ? (
                             <Skeleton className="md:w-[130px] rounded-2xl md:h-[150px] w-full h-[370px]" />
                         ) : (
-                            <img src={data.image} className="sm:h-[150px] h-full bg-secondary/50 rounded-2xl sm:w-[200px] w-full object-cover" />
+                            <img src={data.image[2].url} className="sm:h-[150px] h-full bg-secondary/50 rounded-2xl sm:w-[200px] w-full object-cover" />
                         )}
                     </div>
-                    {!data.song ? (
+                    {data.length <= 0 ? (
                         <div className="flex flex-col justify-between w-full">
                             <div>
                                 <Skeleton className="h-4 w-36 mb-2" />
@@ -137,8 +145,8 @@ export default function Player({ id }) {
                     ) : (
                         <div className="flex flex-col justify-between w-full">
                             <div>
-                                <h1 className="text-xl font-bold md:max-w-lg max-w-[260px]">{data.song}</h1>
-                                <p className="text-xs text-muted-foreground">{data.singers || "unknown"}</p>
+                                <h1 className="text-xl font-bold md:max-w-lg max-w-[260px]">{data.name}</h1>
+                                <p className="text-xs text-muted-foreground">{data.artists.primary[0]?.name || "unknown"}</p>
                             </div>
                             <div className="grid gap-2 w-full mt-5 sm:mt-0">
                                 <Slider onValueChange={handleSeek} value={[currentTime]} max={duration} className="w-full" />

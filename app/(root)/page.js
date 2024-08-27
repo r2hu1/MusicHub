@@ -14,7 +14,6 @@ export default function Page() {
   const getSongs = async (e, type) => {
     const get = await getSongsByQuery(e);
     const data = await get.json();
-    console.log(data.data.results);
     if (type === "latest") {
       setLatest(data.data.results);
     } else if (type === "popular") {

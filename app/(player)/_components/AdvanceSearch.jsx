@@ -18,6 +18,7 @@ import { Loader } from "lucide-react";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
 import { Play } from "lucide-react";
+import { Search } from "lucide-react";
 
 export default function AdvanceSearch() {
     const [query, setQuery] = useState("");
@@ -35,11 +36,6 @@ export default function AdvanceSearch() {
         try {
             const response = await getSongsByQuery(query);
             const result = await response.json();
-
-            // Debugging logs
-            console.log("API response:", result);
-
-            // Check if the expected data structure exists
             if (result.data && result.data.results) {
                 setData(result.data.results);
             } else {
@@ -47,7 +43,6 @@ export default function AdvanceSearch() {
                 setData([]);
             }
         } catch (error) {
-            console.error("Failed to fetch songs", error);
             setData([]);
         } finally {
             setLoading(false);
@@ -58,7 +53,7 @@ export default function AdvanceSearch() {
         if (query) {
             const handler = setTimeout(() => {
                 getSongs();
-            }, 300); // Debounce to avoid too many requests
+            }, 400);
 
             return () => {
                 clearTimeout(handler);
@@ -72,17 +67,18 @@ export default function AdvanceSearch() {
         <div className="px-6 !mb-10 md:px-20 lg:px-32">
             <Credenza>
                 <CredenzaTrigger asChild>
-                    <div className="flex h-10 w-full items-center rounded-md border border-input bg-background px-3 py-2 text-sm text-muted-foreground">
+                    <div className="flex cursor-text h-10 w-full items-center rounded-md border border-input bg-background px-3 py-2 text-sm text-muted-foreground">
                         Look for songs by name...
                     </div>
                 </CredenzaTrigger>
                 <CredenzaContent>
                     <CredenzaHeader>
-                        <CredenzaTitle className="text-left">
-                            <Input autoFocus value={query} onChange={(e) => setQuery(e.target.value)} className="w-full" type="search" name="query" placeholder="Search for songs by name..." autoComplete="off" />
+                        <CredenzaTitle className="text-left flex gap-2">
+                            <Input autoFocus={query == ""} value={query} onChange={(e) => setQuery(e.target.value)} className="w-full" type="search" name="query" placeholder="Search for songs by name..." autoComplete="off" />
+                            <Button className="min-w-10" size="icon"><Search className="h-4 w-4" /></Button>
                         </CredenzaTitle>
                     </CredenzaHeader>
-                    <CredenzaBody className="text-left grid gap-2 mb-5">
+                    <CredenzaBody className="text-left grid gap-2 mb-5 px-0">
                         {loading && (
                             <div className="flex h-[400px] w-full items-center justify-center text-sm text-muted-foreground">
                                 <Loader className="mr-2 h-4 w-4 animate-spin" />
@@ -101,23 +97,24 @@ export default function AdvanceSearch() {
                         )}
                         {query && !loading && data.length > 0 && (
                             <>
-                                <div>
-                                    <h1 className="text-sm text-foreground/70">Search results for <span className="bg-primary text-primary-foreground">{query}</span></h1>
+                                <div className="px-4 md:px-0">
+                                    <h1 className="text-sm text-foreground/70">Search results for <span className="bg-primary/70 text-primary-foreground">{query}</span></h1>
                                 </div>
-                                <ScrollArea className="h-[390px]">
+                                <ScrollArea className="h-[390px] md:px-0 px-4">
                                     <div className="flex flex-col gap-2">
                                         {data.length > 0 && data.map((song) => (
                                             <Link className="w-full hover:bg-secondary/30 border border-border rounded-md p-3 flex items-center justify-between gap-3" key={song.id} href={`/${song.id}`}>
                                                 <div className="flex items-center gap-3">
                                                     <img src={song.image[2].url} alt={song.name} className="bg-secondary/50 w-8 h-8 rounded-md" />
                                                     <p className="text-sm grid">
-                                                        {song.name}
+                                                        {song.name.slice(0, 40)}
+                                                        {song.name.length > 40 && '...'}
                                                         <span className="text-muted-foreground">
                                                             {song.artists.primary[0]?.name || "unknown"}
                                                         </span>
                                                     </p>
                                                 </div>
-                                                <Button size="icon" variant="outline"><Play className="h-4 w-4" /></Button>
+                                                <Button size="icon" className="min-w-10" variant="outline"><Play className="h-4 w-4" /></Button>
                                             </Link>
                                         ))}
                                     </div>
