@@ -2,17 +2,19 @@
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import SongCard from "@/components/cards/song";
 import { useEffect, useState } from "react";
-import { getSongsById } from "@/lib/fetch";
 import { Skeleton } from "@/components/ui/skeleton";
 
 export default function Page() {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
+    const getSongById = async (id) => {
+        return await fetch("https://api-jiosaavn.vercel.app/song/get/?id="+id);
+    }
     const getData = async () => {
         let saved = localStorage.getItem("saved");
         if (saved != null) {
             let ids = saved.split(" ");
-            let data = await Promise.all(ids.map(id => getSongsById(id)));
+            let data = await Promise.all(ids.map(id => getSongById(id)));
             let songs = await Promise.all(data.map(song => song.json()));
             setData(songs.filter(song => song.song != null));
             return setLoading(false);
