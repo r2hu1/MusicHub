@@ -4,10 +4,8 @@ import { getSongsById, getSongsLyricsById } from "@/lib/fetch";
 import { Download, Pause, Play, RedoDot, UndoDot, Repeat, Loader2, Bookmark, BookmarkCheck, Repeat1 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
-import { cn } from "@/lib/utils";
 import { Slider } from "@/components/ui/slider";
 import { toast } from "sonner";
-import { Router } from "next/router";
 import { useSearchParams } from "next/navigation";
 
 export default function Player({ id }) {
@@ -94,7 +92,6 @@ export default function Player({ id }) {
 
     useEffect(() => {
         getSong();
-
         let exisn = localStorage.getItem("saved");
         if (exisn != null && exisn.split(" ").find(e => e == id)) {
             setIsSaved(true);
@@ -112,9 +109,6 @@ export default function Player({ id }) {
             }
         };
         audioRef.current.addEventListener('timeupdate', handleTimeUpdate);
-        Router.events.on('routeChangeStart', () => {
-            console.log('routeChangeStart');
-        })
         return () => {
             if (audioRef.current) {
                 audioRef.current.removeEventListener('timeupdate', handleTimeUpdate);
