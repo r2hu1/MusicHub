@@ -56,8 +56,13 @@ export default function Player() {
             getSong();
             setPlaying(true);
             const handleTimeUpdate = () => {
-                setCurrentTime(audioRef.current.currentTime);
-                setDuration(audioRef.current.duration);
+                try{
+                    setCurrentTime(audioRef.current.currentTime);
+                    setDuration(audioRef.current.duration);
+                }
+                catch(e){
+                    setPlaying(false);
+                }
             };
             audioRef.current.addEventListener('timeupdate', handleTimeUpdate);
             return () => {
@@ -71,13 +76,13 @@ export default function Player() {
         <main>
             <audio autoPlay={playing} onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} onLoadedData={() => setDuration(audioRef.current.duration)} src={audioURL} ref={audioRef}></audio>
             {values.music && <div className="fixed flex items-center bottom-0 right-0 w-full border-t left-0 z-50 bg-background/90 backdrop-blur-3xl p-3 gap-4">
-                <Link href={`/${values.music}`}>
+                <Link href={`/${values.music}?c=${currentTime}`}>
                     <img src={data.image ? data?.image[1]?.url : ""} alt={data?.name} className="rounded-md h-20 min-w-20 hover:opacity-85 transition" />
                 </Link>
                 <div className="w-full">
                     <div className="flex items-center justify-between mb-2 w-full">
                         <div>
-                            <Link href={`/${values.music}`} className="text-base font-medium flex gap-2 items-center">{data?.name} <ExternalLink className="h-3.5 w-3.5 text-muted-foreground" /></Link>
+                            <Link href={`/${values.music}?c=${currentTime}`} className="text-base font-medium flex gap-2 items-center">{data?.name} <ExternalLink className="h-3.5 w-3.5 text-muted-foreground" /></Link>
                             <h2 className="text-xs -mt-0.5 text-muted-foreground">{data?.artists?.primary[0]?.name.slice(0, 20)}{data?.artists?.primary[0]?.name.length >= 20 ? ".." : ""}</h2>
                         </div>
                         <Button size="icon" className="min-w-10" onClick={togglePlayPause}>{playing ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}</Button>
