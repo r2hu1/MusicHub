@@ -1,5 +1,6 @@
 "use client"
 
+import AlbumCard from "@/components/cards/album";
 import SongCard from "@/components/cards/song";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -32,7 +33,7 @@ export default function Recomandation({ id }) {
                     <div>
                         <div className="flex gap-3">
                             {data.map((song) => (
-                                <SongCard key={song.id} image={song.image[2].url} album={song.album.name} title={song.name} artist={song.artists.primary[0]?.name || "unknown"} id={song.id} />
+                                <AlbumCard key={song.id} image={song.image[2].url} album={song.album.name} title={song.name} artist={song.artists.primary[0]?.name || "unknown"} id={song.id} />
                             ))}
                         </div>
                     </div>
