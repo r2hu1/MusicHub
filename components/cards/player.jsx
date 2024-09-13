@@ -75,7 +75,7 @@ export default function Player() {
     return (
         <main>
             <audio autoPlay={playing} onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} onLoadedData={() => setDuration(audioRef.current.duration)} src={audioURL} ref={audioRef}></audio>
-            {values.music && <div className="fixed flex items-center bottom-0 right-0 w-full border-t left-0 z-50 bg-background/90 backdrop-blur-3xl p-3 md:px-20 lg:px-32 gap-4">
+            {values.music && <div className="fixed flex items-center bottom-0 right-0 w-full border-t left-0 z-50 bg-background/75 backdrop-blur-3xl p-3 md:px-20 lg:px-32 gap-4">
                 <Link href={`/${values.music}?c=${currentTime}`}>
                     <img src={data.image ? data?.image[1]?.url : ""} alt={data?.name} className="rounded-md h-20 min-w-20 hover:opacity-85 transition" />
                 </Link>
