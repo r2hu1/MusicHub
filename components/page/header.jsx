@@ -14,9 +14,9 @@ export default function Header() {
                 <div className="hidden md:block">
                     <Search />
                 </div>
-                <Link href="/saved" className={cn(buttonVariants({ variant: "default" }), "gap-2")}>
+                {/* <Link href="/saved" className={cn(buttonVariants({ variant: "default" }), "gap-2")}>
                     Saved <Bookmark className="w-4 h-4" />
-                </Link>
+                </Link> */}
                 <ModeToggle />
             </div>
         </header>
