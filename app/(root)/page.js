@@ -30,7 +30,7 @@ export default function Page() {
 
   useEffect(() => {
     getSongs("latest", "latest");
-    getSongs("love", "popular");
+    getSongs("trending", "popular");
     getAlbum();
   }, []);
 
@@ -145,7 +145,7 @@ export default function Page() {
       </div>
 
       <div className="mt-8">
-        <h1 className="text-base font-medium">Popular Songs</h1>
+        <h1 className="text-base font-medium">Trending Songs</h1>
         <p className="text-xs text-muted-foreground">Most played songs in this week.</p>
         <ScrollArea className="rounded-md mt-4">
           <div className="flex gap-3">

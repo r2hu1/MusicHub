@@ -40,7 +40,7 @@ export default function Album({ id }) {
                         <ScrollArea className="rounded-md mt-4">
                             <div className="flex gap-3">
                                 {data.songs.map((song) => (
-                                    <AlbumCard key={song.id} image={song.image[2].url} title={song.name} artist={song.artists.primary[0].name} id={song.id} />
+                                    <SongCard key={song.id} image={song.image[2].url} title={song.name} artist={song.artists.primary[0].name} id={song.id} />
                                 ))}
                             </div>
                             <ScrollBar orientation="horizontal" className="hidden" />
