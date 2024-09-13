@@ -42,7 +42,7 @@ export default function RootLayout({ children }) {
             showAtBottom={false}
           />
           {children}
-          <Toaster position="bottom-right"/>
+          <Toaster position="top-center"/>
         </ThemeProvider>
       </body>
     </html>

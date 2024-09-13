@@ -1,11 +1,12 @@
 "use client";
 import { useContext, useEffect, useRef, useState } from "react";
 import { Button } from "../ui/button";
-import { ExternalLink, Pause, Play } from "lucide-react";
+import { ExternalLink, Pause, Play, Repeat, Repeat1 } from "lucide-react";
 import { Slider } from "../ui/slider";
 import { getSongsById } from "@/lib/fetch";
 import Link from "next/link";
 import { MusicContext } from "@/hooks/use-context";
+import { toast } from "sonner";
 
 export default function Player() {
     const [data, setData] = useState([]);
@@ -14,6 +15,7 @@ export default function Player() {
     const [currentTime, setCurrentTime] = useState(0);
     const [duration, setDuration] = useState(0);
     const [audioURL, setAudioURL] = useState("");
+    const [isLooping, setIsLooping] = useState(false);
 
     const values = useContext(MusicContext);
 
@@ -51,16 +53,26 @@ export default function Player() {
         setCurrentTime(seekTime);
     };
 
+    const loopSong = () => {
+        audioRef.current.loop = !audioRef.current.loop;
+        setIsLooping(!isLooping);
+        if (isLooping) {
+            toast.success('Removed from Loop!');
+        } else {
+            toast.success('Added to Loop!');
+        }
+    };
+
     useEffect(() => {
         if (values.music) {
             getSong();
             setPlaying(true);
             const handleTimeUpdate = () => {
-                try{
+                try {
                     setCurrentTime(audioRef.current.currentTime);
                     setDuration(audioRef.current.duration);
                 }
-                catch(e){
+                catch (e) {
                     setPlaying(false);
                 }
             };
@@ -75,17 +87,22 @@ export default function Player() {
     return (
         <main>
             <audio autoPlay={playing} onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} onLoadedData={() => setDuration(audioRef.current.duration)} src={audioURL} ref={audioRef}></audio>
-            {values.music && <div className="fixed flex items-center bottom-0 right-0 w-full border-t left-0 z-50 bg-background/75 backdrop-blur-3xl p-3 md:px-20 lg:px-32 gap-4">
-                <Link href={`/${values.music}?c=${currentTime}`}>
+            {values.music && <div className="shadow-lg dark:shadow-none fixed flex items-center bottom-0 right-0 w-full border-t left-0 z-50 bg-background p-3 md:px-20 lg:px-32 gap-4">
+                {/* <Link href={`/${values.music}?c=${currentTime}`}> */}
+                <div className="relative">
+                    <Button size="icon" variant="secondary" className="h-full w-full bg-secondary/40 hover:bg-secondary/50 backdrop-blur-sm absolute z-10" onClick={togglePlayPause}>{playing ? <Pause className="h-6 w-6" /> : <Play className="h-6 w-6" />}</Button>
                     <img src={data.image ? data?.image[1]?.url : ""} alt={data?.name} className="rounded-md h-20 min-w-20 hover:opacity-85 transition" />
-                </Link>
+                </div>
+                {/* </Link> */}
                 <div className="w-full">
                     <div className="flex items-center justify-between mb-2 w-full">
                         <div>
                             <Link href={`/${values.music}?c=${currentTime}`} className="text-base font-medium flex gap-2 items-center">{data?.name?.slice(0, 18)}{data?.name?.length >= 18 ? ".." : ""} <ExternalLink className="h-3.5 w-3.5 text-muted-foreground" /></Link>
                             <h2 className="text-xs -mt-0.5 text-muted-foreground">{data?.artists?.primary[0]?.name.slice(0, 20)}{data?.artists?.primary[0]?.name.length >= 20 ? ".." : ""}</h2>
                         </div>
-                        <Button size="icon" className="min-w-10" onClick={togglePlayPause}>{playing ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}</Button>
+                        <Button size="icon" variant="outline" onClick={loopSong}>
+                            {!isLooping ? <Repeat className="h-4 w-4" /> : <Repeat1 className="h-4 w-4" />}
+                        </Button>
                     </div>
                     <div className="w-full grid gap-1">
                         <Slider onValueChange={handleSeek} value={[currentTime]} max={duration} className="w-full" />
