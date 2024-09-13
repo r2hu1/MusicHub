@@ -11,8 +11,8 @@ export default function MusicProvider({ children }) {
         if(localStorage.getItem("last-played")) {
             setMusic(localStorage.getItem("last-played"))
         }
-        const params = useSearchParams().get("playing");
-        setMusic(params ? params : null);
+       /* const params = useSearchParams().get("playing");
+        setMusic(params ? params : null);*/
     }, []);
     return (
         <MusicContext.Provider value={{ music, setMusic }}>
