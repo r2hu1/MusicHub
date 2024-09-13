@@ -1,5 +1,6 @@
 "use client"
 
+import AlbumCard from "@/components/cards/album";
 import SongCard from "@/components/cards/song";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
@@ -39,7 +40,7 @@ export default function Album({ id }) {
                         <ScrollArea className="rounded-md mt-4">
                             <div className="flex gap-3">
                                 {data.songs.map((song) => (
-                                    <SongCard key={song.id} image={song.image[2].url} title={song.name} artist={song.artists.primary[0].name} id={song.id} />
+                                    <AlbumCard key={song.id} image={song.image[2].url} title={song.name} artist={song.artists.primary[0].name} id={song.id} />
                                 ))}
                             </div>
                             <ScrollBar orientation="horizontal" className="hidden" />
