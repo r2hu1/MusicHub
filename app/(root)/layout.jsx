@@ -1,3 +1,4 @@
+import MusicProvider from "@/components/music-provider";
 import Footer from "@/components/page/footer";
 import Header from "@/components/page/header";
 import Search from "@/components/page/search";
@@ -9,7 +10,9 @@ export default function RootLayout({ children }) {
             <div className="md:hidden block px-6 mb-2">
                 <Search />
             </div>
-            {children}
+            <MusicProvider>
+                {children}
+            </MusicProvider>
             <Footer />
         </main>
     )
