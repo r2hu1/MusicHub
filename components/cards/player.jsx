@@ -91,9 +91,9 @@ export default function Player() {
     return (
         <main>
             <audio autoPlay={playing} onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} onLoadedData={() => setDuration(audioRef.current.duration)} src={audioURL} ref={audioRef}></audio>
-            {values.music && <div className="shadow-lg dark:shadow-none fixed flex items-center bottom-0 right-0 w-full border-t left-0 z-50 bg-background p-3 md:px-20 lg:px-32 gap-4">
+            {values.music && <div className="shadow-lg fixed flex items-center rounded-md m-2.5 bottom-0 right-0 left-0 border-border border z-50 bg-background/85 backdrop-blur-3xl p-3 md:ml-16 md:mr-16 lg:ml-28 lg:mr-28 gap-3">
                 <div className="relative">
-                    <Button size="icon" variant="secondary" className="h-full w-full bg-secondary/40 hover:bg-secondary/50 backdrop-blur-sm absolute z-10" onClick={togglePlayPause}>{playing ? <Pause className="h-6 w-6" /> : <Play className="h-6 w-6" />}</Button>
+                    <Button size="icon" variant="secondary" className="h-full w-full bg-secondary/30 hover:bg-secondary/50 backdrop-blur-sm absolute z-10" onClick={togglePlayPause}>{playing ? <Pause className="h-6 w-6" /> : <Play className="h-6 w-6" />}</Button>
                     <img src={data.image ? data?.image[1]?.url : ""} alt={data?.name} className="rounded-md h-20 min-w-20 hover:opacity-85 transition" />
                 </div>
                 <div className="w-full">
@@ -106,15 +106,17 @@ export default function Player() {
                                 <h2 className="text-xs -mt-0.5 text-muted-foreground">{data?.artists?.primary[0]?.name.slice(0, 20)}{data?.artists?.primary[0]?.name.length >= 20 ? ".." : ""}</h2>
                             )}
                         </div>
-                        <Button size="icon" variant="outline" onClick={loopSong}>
-                            {!isLooping ? <Repeat className="h-4 w-4" /> : <Repeat1 className="h-4 w-4" />}
-                        </Button>
+                        <div className="flex -mt-3.5">
+                            <Button size="icon" className="p-0 h-8 w-8" variant={!isLooping ? "ghost" : "secondary"} onClick={loopSong}>
+                                {!isLooping ? <Repeat className="h-3.5 w-3.5" /> : <Repeat1 className="h-3.5 w-3.5" />}
+                            </Button>
+                        </div>
                     </div>
                     <div className="w-full grid gap-1">
                         <Slider onValueChange={handleSeek} value={[currentTime]} max={duration} className="w-full" />
                         <div className="flex items-center justify-between">
                             <span className="text-xs text-muted-foreground">{formatTime(currentTime)}</span>
-                            {!duration ? <Skeleton className="h-3 w-10"/> : (
+                            {!duration ? <Skeleton className="h-3 w-10" /> : (
                                 <span className="text-xs text-muted-foreground">{formatTime(duration)}</span>
                             )}
                         </div>

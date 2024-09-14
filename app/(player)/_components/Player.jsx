@@ -113,7 +113,7 @@ export default function Player({ id }) {
         };
     }, []);
     return (
-        <div className="mb-3 mt-5">
+        <div className="mb-3 mt-4">
             <audio onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} onLoadedData={() => setDuration(audioRef.current.duration)} autoPlay={playing} src={audioURL} ref={audioRef}></audio>
             <div className="grid gap-6 w-full">
                 <div className="sm:flex px-6 md:px-20 lg:px-32 grid gap-5 w-full">
