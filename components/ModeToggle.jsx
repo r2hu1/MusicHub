@@ -8,7 +8,6 @@ import { Button } from "@/components/ui/button"
 
 export function ModeToggle() {
   const { setTheme, resolvedTheme: theme, systemTheme } = useTheme();
-  console.log(systemTheme);
 
   return (
     <div className="flex rounded-lg overflow-hidden border border-border">
