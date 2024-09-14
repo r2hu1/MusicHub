@@ -91,7 +91,7 @@ export default function Player() {
     return (
         <main>
             <audio autoPlay={playing} onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} onLoadedData={() => setDuration(audioRef.current.duration)} src={audioURL} ref={audioRef}></audio>
-            {values.music && <div className="shadow-lg dark:shadow-none fixed flex items-center bottom-0 right-0 w-full border-t left-0 z-50 bg-background p-3 md:px-20 lg:px-32 gap-4">
+            {values.music && <div className="shadow-lg dark:shadow-none fixed flex items-center bottom-2.5 right-2.5 w-full border-t left-2.5 z-50 bg-background p-3 md:px-20 lg:px-32 gap-4">
                 <div className="relative">
                     <Button size="icon" variant="secondary" className="h-full w-full bg-secondary/40 hover:bg-secondary/50 backdrop-blur-sm absolute z-10" onClick={togglePlayPause}>{playing ? <Pause className="h-6 w-6" /> : <Play className="h-6 w-6" />}</Button>
                     <img src={data.image ? data?.image[1]?.url : ""} alt={data?.name} className="rounded-md h-20 min-w-20 hover:opacity-85 transition" />
