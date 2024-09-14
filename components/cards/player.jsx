@@ -7,7 +7,6 @@ import { getSongsById } from "@/lib/fetch";
 import Link from "next/link";
 import { MusicContext } from "@/hooks/use-context";
 import { toast } from "sonner";
-import { useSearchParams } from "next/navigation";
 import { Skeleton } from "../ui/skeleton";
 
 export default function Player() {
@@ -18,7 +17,6 @@ export default function Player() {
     const [duration, setDuration] = useState(0);
     const [audioURL, setAudioURL] = useState("");
     const [isLooping, setIsLooping] = useState(false);
-    const param = useSearchParams();
     const values = useContext(MusicContext);
 
     const getSong = async () => {
