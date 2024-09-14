@@ -7,6 +7,7 @@ import { getSongsById } from "@/lib/fetch";
 import Link from "next/link";
 import { MusicContext } from "@/hooks/use-context";
 import { toast } from "sonner";
+import { useSearchParams } from "next/navigation";
 
 export default function Player() {
     const [data, setData] = useState([]);
@@ -16,7 +17,7 @@ export default function Player() {
     const [duration, setDuration] = useState(0);
     const [audioURL, setAudioURL] = useState("");
     const [isLooping, setIsLooping] = useState(false);
-
+    const param = useSearchParams();
     const values = useContext(MusicContext);
 
     const getSong = async () => {
@@ -66,7 +67,11 @@ export default function Player() {
     useEffect(() => {
         if (values.music) {
             getSong();
-            setPlaying(true);
+            if (localStorage.getItem("c")) {
+                audioRef.current.currentTime = parseFloat(localStorage.getItem("c") + 1);
+                localStorage.removeItem("c");
+            }
+            setPlaying(localStorage.getItem("p") == "true" && true || !localStorage.getItem("p") && true);
             const handleTimeUpdate = () => {
                 try {
                     setCurrentTime(audioRef.current.currentTime);
