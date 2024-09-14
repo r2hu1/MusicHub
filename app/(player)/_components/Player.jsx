@@ -1,7 +1,7 @@
 "use client"
 import { Button } from "@/components/ui/button";
 import { getSongsById, getSongsLyricsById } from "@/lib/fetch";
-import { Download, Pause, Play, RedoDot, UndoDot, Repeat, Loader2, Bookmark, BookmarkCheck, Repeat1 } from "lucide-react";
+import { Download, Pause, Play, RedoDot, UndoDot, Repeat, Loader2, Bookmark, BookmarkCheck, Repeat1, Share2 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Slider } from "@/components/ui/slider";
@@ -42,8 +42,10 @@ export default function Player({ id }) {
     const togglePlayPause = () => {
         if (playing) {
             audioRef.current.pause();
+            localStorage.setItem("p", "false");
         } else {
             audioRef.current.play();
+            localStorage.setItem("p", "true");
         }
         setPlaying(!playing);
     };
@@ -78,31 +80,16 @@ export default function Player({ id }) {
         }
     };
 
-    const handleAddToBookmark = () => {
-        let exisn = localStorage.getItem("saved");
-        if (exisn != null && exisn.split(" ").find(e => e == id)) {
-            localStorage.setItem("saved", exisn.split(" ").filter(e => e != id).join(" "));
-            setIsSaved(false);
-            return toast.success('Removed from Bookmarks!');
-        }
-        setIsSaved(true);
-        localStorage.setItem("saved", `${exisn != null ? exisn : ""} ${id}`);
-        toast.success('Saved to Bookmarks!');
-    };
-
     useEffect(() => {
         getSong();
-        let exisn = localStorage.getItem("saved");
-        if (exisn != null && exisn.split(" ").find(e => e == id)) {
-            setIsSaved(true);
-        }
         if (params.get("c")) {
-            audioRef.current.currentTime = parseFloat(params.get("c"));
+            audioRef.current.currentTime = parseFloat(params.get("c") + 1);
         }
         const handleTimeUpdate = () => {
             try {
                 setCurrentTime(audioRef.current.currentTime);
                 setDuration(audioRef.current.duration);
+                localStorage.setItem("c", audioRef.current.currentTime);
             }
             catch (e) {
                 setPlaying(false);
@@ -178,7 +165,7 @@ export default function Player({ id }) {
                                             )}
                                         </Button>
                                     </div>
-                                    <Button size="icon" variant="outline" onClick={handleAddToBookmark}>{!isSaved ? <Bookmark className="h-4 w-4" /> : <BookmarkCheck className="h-4 w-4" />}</Button>
+                                    <Button size="icon" variant="outline" onClick={() => navigator.share({ url: `${window.location.toString()}` })}><Share2 className="h-4 w-4" /></Button>
                                 </div>
                             </div>
                         </div>
