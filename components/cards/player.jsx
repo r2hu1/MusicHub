@@ -91,10 +91,11 @@ export default function Player() {
     return (
         <main>
             <audio autoPlay={playing} onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} onLoadedData={() => setDuration(audioRef.current.duration)} src={audioURL} ref={audioRef}></audio>
-            {values.music && <div className="shadow-lg fixed flex items-center rounded-md m-2.5 bottom-0 right-0 left-0 border-border border z-50 bg-background/85 backdrop-blur-3xl p-3 md:ml-16 md:mr-16 lg:ml-28 lg:mr-28 gap-3">
+            {values.music && <div className="shadow-lg fixed flex items-center rounded-md m-2.5 bottom-0 right-0 left-0 border-border overflow-hidden border z-50 bg-background p-3 md:ml-16 md:mr-16 lg:ml-28 lg:mr-28 gap-3">
                 <div className="relative">
                     <Button size="icon" variant="secondary" className="h-full w-full bg-secondary/30 hover:bg-secondary/50 backdrop-blur-sm absolute z-10" onClick={togglePlayPause}>{playing ? <Pause className="h-6 w-6" /> : <Play className="h-6 w-6" />}</Button>
                     <img src={data.image ? data?.image[1]?.url : ""} alt={data?.name} className="rounded-md h-20 min-w-20 hover:opacity-85 transition" />
+                    <img src={data.image ? data?.image[1]?.url : ""} alt={data?.name} className="rounded-md h-[110%] min-w-[110%] opacity-40 hidden dark:block absolute top-0 left-0 right-0 blur-3xl -z-10" />
                 </div>
                 <div className="w-full">
                     <div className="flex items-center justify-between mb-2 w-full">
