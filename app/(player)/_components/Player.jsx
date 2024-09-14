@@ -91,6 +91,7 @@ export default function Player({ id }) {
     useEffect(() => {
         getSong();
         localStorage.setItem("last-played", id);
+        localStorage.removeItem("p");
         if (params.get("c")) {
             audioRef.current.currentTime = parseFloat(params.get("c") + 1);
         }

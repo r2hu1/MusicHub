@@ -4,7 +4,7 @@ import { Skeleton } from "../ui/skeleton";
 import { useContext, useEffect } from "react";
 import { MusicContext } from "@/hooks/use-context";
 
-export default function SongCard({ title, image, artist, id, desc, type = "music" }) {
+export default function SongCard({ title, image, artist, id, desc }) {
     const ids = useContext(MusicContext);
     const setLastPlayed = () => {
         localStorage.clear();
