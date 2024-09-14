@@ -7,6 +7,7 @@ import { MusicContext } from "@/hooks/use-context";
 export default function SongCard({ title, image, artist, id, desc, type = "music" }) {
     const ids = useContext(MusicContext);
     const setLastPlayed = () => {
+        localStorage.clear();
         localStorage.setItem("last-played", id);
     };
     return (
