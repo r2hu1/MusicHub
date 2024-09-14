@@ -16,7 +16,6 @@ export default function Player({ id }) {
     const [duration, setDuration] = useState(0);
     const [isDownloading, setIsDownloading] = useState(false);
     const [isLooping, setIsLooping] = useState(false);
-    const [isSaved, setIsSaved] = useState(false);
     const [audioURL, setAudioURL] = useState("");
     const params = useSearchParams();
 
@@ -80,6 +79,15 @@ export default function Player({ id }) {
         }
     };
 
+    const handleShare = () => {
+        try {
+            navigator.share({ url: `${window.location.toString()}` });
+        }
+        catch (e) {
+            toast.error('Something went wrong!');
+        }
+    }
+
     useEffect(() => {
         getSong();
         if (params.get("c")) {
@@ -109,9 +117,12 @@ export default function Player({ id }) {
                 <div className="sm:flex px-6 md:px-20 lg:px-32 grid gap-5 w-full">
                     <div>
                         {data.length <= 0 ? (
-                            <Skeleton className="md:w-[130px] rounded-2xl md:h-[150px] w-full h-[370px]" />
+                            <Skeleton className="md:w-[130px] aspect-square rounded-2xl md:h-[150px]" />
                         ) : (
-                            <img src={data.image[2].url} className="sm:h-[150px] h-full bg-secondary/50 rounded-2xl sm:w-[200px] w-full object-cover" />
+                            <div className="relative">
+                                <img src={data.image[2].url} className="sm:h-[150px] h-full bg-secondary/50 rounded-2xl sm:w-[200px] w-full object-cover" />
+                                <img src={data.image[2].url} className="hidden dark:block absolute top-0 left-0 w-[110%] h-[110%] blur-3xl -z-10 opacity-40" />
+                            </div>
                         )}
                     </div>
                     {data.length <= 0 ? (
@@ -165,7 +176,7 @@ export default function Player({ id }) {
                                             )}
                                         </Button>
                                     </div>
-                                    <Button size="icon" variant="outline" onClick={() => navigator.share({ url: `${window.location.toString()}` })}><Share2 className="h-4 w-4" /></Button>
+                                    <Button size="icon" variant="outline" onClick={handleShare}><Share2 className="h-4 w-4" /></Button>
                                 </div>
                             </div>
                         </div>
