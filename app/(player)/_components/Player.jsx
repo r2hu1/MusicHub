@@ -7,6 +7,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Slider } from "@/components/ui/slider";
 import { toast } from "sonner";
 import { useSearchParams } from "next/navigation";
+import Link from "next/link";
 
 export default function Player({ id }) {
     const [data, setData] = useState([]);
@@ -150,7 +151,7 @@ export default function Player({ id }) {
                         <div className="flex flex-col justify-between w-full">
                             <div>
                                 <h1 className="text-xl font-bold md:max-w-lg max-w-[260px]">{data.name}</h1>
-                                <p className="text-xs text-muted-foreground">{data.artists.primary[0]?.name || "unknown"}</p>
+                                <p className="text-xs text-muted-foreground">by <Link href={"/search/" + `${encodeURI(data.artists.primary[0].name.toLowerCase().split(" ").join("+"))}`} className="text-foreground">{data.artists.primary[0]?.name || "unknown"}</Link></p>
                             </div>
                             <div className="grid gap-2 w-full mt-5 sm:mt-0">
                                 <Slider onValueChange={handleSeek} value={[currentTime]} max={duration} className="w-full" />
