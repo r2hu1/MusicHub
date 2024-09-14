@@ -112,7 +112,7 @@ export default function Player() {
                                 {!isLooping ? <Repeat className="h-3.5 w-3.5" /> : <Repeat1 className="h-3.5 w-3.5" />}
                             </Button>
                             <Button asChild size="icon" className="p-0 h-8 w-8" variant={"outline"}>
-                                <Link href={`/${values.music}`}><ExternalLink className="h-3.5 w-3.5" /></Link>
+                                <Link href={`/${values.music}?c=${currentTime}`}><ExternalLink className="h-3.5 w-3.5" /></Link>
                             </Button>
                         </div>
                     </div>
