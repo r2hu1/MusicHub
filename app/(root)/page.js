@@ -68,7 +68,7 @@ export default function Page() {
         <ScrollArea className="rounded-md mt-4">
           <div className="flex gap-3">
             {albums.length ? albums.map((song) => (
-              <AlbumCard key={song.id} image={song.image[2].url} album={song.album} title={song.name} artist={song.artists.primary[0].name} id={`album/${song.id}`} />
+              <AlbumCard key={song.id} lang={song.language} image={song.image[2].url} album={song.album} title={song.name} artist={song.artists.primary[0].name} id={`album/${song.id}`} />
             )) : (
               <>
                 <SongCard />
