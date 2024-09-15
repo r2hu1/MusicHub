@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { Skeleton } from "../ui/skeleton";
+import { Badge } from "../ui/badge";
 
-export default function AlbumCard({ title, image, artist, id, desc }) {
+export default function AlbumCard({ title, image, artist, id, desc,lang }) {
     return (
         <div className="p-2 h-fit border border-border rounded-md bg-secondary/30 w-[200px]">
             <div className="overflow-hidden rounded-md">
@@ -25,7 +26,10 @@ export default function AlbumCard({ title, image, artist, id, desc }) {
                     <p className="text-xs text-muted-foreground">{desc.slice(0, 30)}</p>
                 )}
                 {artist ? (
-                    <p className="text-xs text-muted-foreground">by <span className="text-primary">{artist.slice(0, 20)}{artist.length > 20 && '...'}</span></p>
+                    <>
+                        <p className="text-xs mb-0.5 text-muted-foreground">by <span className="text-primary">{artist.slice(0, 20)}{artist.length > 20 && '...'}</span></p>
+                        <Badge>{lang}</Badge>
+                    </>
                 ) : (
                     <Skeleton className="w-10 h-2 mt-2" />
                 )}
