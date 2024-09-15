@@ -117,7 +117,9 @@ export default function Player() {
                         </div>
                     </div>
                     <div className="w-full grid gap-1">
-                        <Slider onValueChange={handleSeek} value={[currentTime]} max={duration} className="w-full" />
+                        {!duration ? <Skeleton className="h-2 w-full" /> : (
+                            <Slider onValueChange={handleSeek} value={[currentTime]} max={duration} className="w-full" />
+                        )}
                         <div className="flex items-center justify-between">
                             <span className="text-xs text-muted-foreground">{formatTime(currentTime)}</span>
                             {!duration ? <Skeleton className="h-3 w-10" /> : (

@@ -61,7 +61,7 @@ export default function Search({ params }) {
                 <ScrollArea className="whitespace-nowrap pb-4">
                     <div className="flex gap-3">
                         {albums.length ? albums.map((song) => (
-                            <AlbumCard key={song.id} desc={song.description || null} id={`album/${song.id}`} image={song.image[2].url} title={song.name} artist={song.artists.primary[0]?.name || "unknown"} />
+                            <AlbumCard key={song.id} lang={song.language} desc={song.description || null} id={`album/${song.id}`} image={song.image[2].url} title={song.name} artist={song.artists.primary[0]?.name || "unknown"} />
                         )) : (
                             <>
                                 <SongCard />
