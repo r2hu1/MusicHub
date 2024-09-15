@@ -22,9 +22,9 @@ export default function Search() {
     return (
         <>
         <Link href={"/search/" + query} ref={linkRef}></Link>
-            <form onSubmit={handleSubmit} className="flex items-center gap-2">
-                <Input ref={inpRef} value={query} onChange={(e) => setQuery(e.target.value)} autoComplete="off" className="w-full md:w-[300px]" type="search" name="query" placeholder="Search for song, artist.." />
-                <Button type="submit" size="icon" className="min-w-10"><SearchIcon className="w-4 h-4"/></Button>
+            <form onSubmit={handleSubmit} className="flex items-center">
+                <Input ref={inpRef} value={query} onChange={(e) => setQuery(e.target.value)} autoComplete="off" className="w-full !outline-none !ring-0 md:w-[300px] border-r-0 rounded-r-none" type="search" name="query" placeholder="Type something to search..." />
+                <Button type="submit" size="icon" className="min-w-10 rounded-l-none"><SearchIcon className="w-4 h-4"/></Button>
             </form>
         </>
     )
