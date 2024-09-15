@@ -1,7 +1,7 @@
 "use client";
 import { useContext, useEffect, useRef, useState } from "react";
 import { Button } from "../ui/button";
-import { ExternalLink, Link2Icon, Pause, Play, Repeat, Repeat1 } from "lucide-react";
+import { ExternalLink, Link2Icon, Pause, Play, Repeat, Repeat1, X } from "lucide-react";
 import { Slider } from "../ui/slider";
 import { getSongsById } from "@/lib/fetch";
 import Link from "next/link";
@@ -101,18 +101,27 @@ export default function Player() {
                     <div className="flex items-center justify-between mb-2 w-full">
                         <div>
                             {!data?.name ? <Skeleton className="h-4 w-32" /> : (
-                                <Link href={`/${values.music}?c=${currentTime}`} className="text-base hover:opacity-85 transition font-medium flex gap-2 items-center">{data?.name?.slice(0, 18)}{data?.name?.length >= 18 ? ".." : ""} <Link2Icon className="h-3.5 w-3.5 text-muted-foreground" /></Link>
+                                <>
+                                    <Link href={`/${values.music}?c=${currentTime}`} className="text-base hover:opacity-85 transition font-medium flex md:hidden gap-2 items-center">{data?.name?.slice(0, 10)}{data?.name?.length >= 11 ? ".." : ""}<Link2Icon className="h-3.5 w-3.5 text-muted-foreground" /></Link>
+                                    <Link href={`/${values.music}?c=${currentTime}`} className="text-base hover:opacity-85 transition font-medium gap-2 items-center hidden md:flex">{data?.name}<Link2Icon className="h-3.5 w-3.5 text-muted-foreground" /></Link>
+                                </>
                             )}
                             {!data?.artists?.primary[0]?.name ? <Skeleton className="h-3 w-14 mt-1" /> : (
-                                <h2 className="text-xs -mt-0.5 text-muted-foreground">by <span className="text-foreground">{data?.artists?.primary[0]?.name.slice(0, 20)}{data?.artists?.primary[0]?.name.length >= 20 ? ".." : ""}</span></h2>
+                                <>
+                                    <h2 className="block md:hidden text-xs -mt-0.5 text-muted-foreground">by <span className="text-foreground">{data?.artists?.primary[0]?.name.slice(0, 20)}{data?.artists?.primary[0]?.name.length > 20 ? ".." : ""}</span></h2>
+                                    <h2 className="hidden md:block text-xs -mt-0.5 text-muted-foreground">by <span className="text-foreground">{data?.artists?.primary[0]?.name}</span></h2>
+                                </>
                             )}
                         </div>
                         <div className="flex items-center gap-1.5 -mt-3.5">
+                            {/* <Button asChild size="icon" className="p-0 h-8 w-8" variant={"outline"}>
+                                <Link href={`/${values.music}?c=${currentTime}`}><ExternalLink className="h-3.5 w-3.5" /></Link>
+                            </Button> */}
                             <Button size="icon" className="p-0 h-8 w-8" variant={!isLooping ? "outline" : "secondary"} onClick={loopSong}>
                                 {!isLooping ? <Repeat className="h-3.5 w-3.5" /> : <Repeat1 className="h-3.5 w-3.5" />}
                             </Button>
-                            <Button asChild size="icon" className="p-0 h-8 w-8" variant={"outline"}>
-                                <Link href={`/${values.music}?c=${currentTime}`}><ExternalLink className="h-3.5 w-3.5" /></Link>
+                            <Button size="icon" className="p-0 h-8 w-8" onClick={() => { values.setMusic(null); localStorage.clear(); }}>
+                                <X className="h-3.5 w-3.5" />
                             </Button>
                         </div>
                     </div>
@@ -129,6 +138,6 @@ export default function Player() {
                     </div>
                 </div>
             </div>}
-        </main>
+        </main >
     )
 }
