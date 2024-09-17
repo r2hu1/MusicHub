@@ -120,7 +120,7 @@ export default function Player() {
                             <Button size="icon" className="p-0 h-8 w-8" variant={!isLooping ? "outline" : "secondary"} onClick={loopSong}>
                                 {!isLooping ? <Repeat className="h-3.5 w-3.5" /> : <Repeat1 className="h-3.5 w-3.5" />}
                             </Button>
-                            <Button size="icon" className="p-0 h-8 w-8" onClick={() => { values.setMusic(null); localStorage.clear(); audioRef.current.currentTime = 0; }}>
+                            <Button size="icon" className="p-0 h-8 w-8" onClick={() => { values.setMusic(null); localStorage.clear(); audioRef.current.currentTime = 0; audioRef.current.src = null; setAudioURL(null); }}>
                                 <X className="h-3.5 w-3.5" />
                             </Button>
                         </div>
