@@ -102,8 +102,8 @@ export default function Player() {
                         <div>
                             {!data?.name ? <Skeleton className="h-4 w-32" /> : (
                                 <>
-                                    <Link href={`/${values.music}?c=${currentTime}`} className="text-base hover:opacity-85 transition font-medium flex md:hidden gap-2 items-center">{data?.name?.slice(0, 10)}{data?.name?.length >= 11 ? ".." : ""}<Link2Icon className="h-3.5 w-3.5 text-muted-foreground" /></Link>
-                                    <Link href={`/${values.music}?c=${currentTime}`} className="text-base hover:opacity-85 transition font-medium gap-2 items-center hidden md:flex">{data?.name}<Link2Icon className="h-3.5 w-3.5 text-muted-foreground" /></Link>
+                                    <Link href={`/${values.music}?c=${currentTime}`} className="text-base hover:opacity-85 transition font-medium flex md:hidden gap-2 items-center">{data?.name?.slice(0, 10)}{data?.name?.length >= 11 ? ".." : ""}<ExternalLink className="h-3.5 w-3.5 text-muted-foreground" /></Link>
+                                    <Link href={`/${values.music}?c=${currentTime}`} className="text-base hover:opacity-85 transition font-medium gap-2 items-center hidden md:flex">{data?.name}<ExternalLink className="h-3.5 w-3.5 text-muted-foreground" /></Link>
                                 </>
                             )}
                             {!data?.artists?.primary[0]?.name ? <Skeleton className="h-3 w-14 mt-1" /> : (
