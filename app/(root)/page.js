@@ -41,7 +41,7 @@ export default function Page() {
         <p className="text-xs text-muted-foreground">Top new released songs.</p>
         <ScrollArea className="rounded-md mt-4">
           <div className="flex gap-3">
-            {latest.length ? latest.map((song) => (
+            {latest.length ? latest.slice().reverse().map((song) => (
               <SongCard key={song.id} image={song.image[2].url} album={song.album} title={song.name} artist={song.artists.primary[0].name} id={song.id} />
             )) : (
               <>
@@ -67,7 +67,7 @@ export default function Page() {
         <p className="text-xs text-muted-foreground">Top new released albums.</p>
         <ScrollArea className="rounded-md mt-4">
           <div className="flex gap-3">
-            {albums.length ? albums.map((song) => (
+            {albums.length ? albums.slice().reverse().map((song) => (
               <AlbumCard key={song.id} lang={song.language} image={song.image[2].url} album={song.album} title={song.name} artist={song.artists.primary[0].name} id={`album/${song.id}`} />
             )) : (
               <>
