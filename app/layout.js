@@ -22,8 +22,8 @@ export default function RootLayout({ children }) {
       <body className={bricolage_grotesque.className}>
         <ThemeProvider
           attribute="class"
-          defaultTheme="dark"
-          // enableSystem
+          defaultTheme="system"
+          enableSystem
           disableTransitionOnChange
         >
           <NextTopLoader
