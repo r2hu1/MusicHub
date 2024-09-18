@@ -72,4 +72,28 @@
   ::-webkit-scrollbar-track{
     @apply bg-transparent;
   }
+  .blurz{
+    animation: blur .7s forwards;
+  }
+
+  @keyframes blur {
+    0%{
+      filter: blur(5px);
+    }
+    20%{
+      filter: blur(5px);
+    }
+    40%{
+      filter: blur(5px);
+    }
+    60%{
+      filter: blur(5px);
+    }
+    80%{
+      filter: blur(5px);
+    }
+    100%{
+      filter: blur(0);
+    }
+  }
 }
