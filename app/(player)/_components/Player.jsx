@@ -124,8 +124,8 @@ export default function Player({ id }) {
             }
         };
         if (isLooping || duration === 0) return;
-        const handle = window.setInterval(handleRedirect, 300);
-        return () => window.clearInterval(handle);
+        const handle = window.setTimeout(handleRedirect, 100);
+        return () => window.clearTimeout(handle);
     }, [currentTime, duration, isLooping, next?.nextData?.id]);
     return (
         <div className="mb-3 mt-4">
