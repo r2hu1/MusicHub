@@ -9,8 +9,6 @@ import { toast } from "sonner";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { NextContext } from "@/hooks/use-context";
-import { Badge } from "@/components/ui/badge";
-import { useRouter } from "next/navigation";
 import Next from "@/components/cards/next";
 
 export default function Player({ id }) {
@@ -24,7 +22,6 @@ export default function Player({ id }) {
     const [audioURL, setAudioURL] = useState("");
     const params = useSearchParams();
     const next = useContext(NextContext);
-    const router = useRouter();
 
     const getSong = async () => {
         const get = await getSongsById(id);
@@ -96,7 +93,7 @@ export default function Player({ id }) {
     }
 
     if (currentTime === duration && !isLooping && duration !== 0) {
-        return router.push(`/${next?.nextData?.id}`);
+        return window.location.href = `https://${window.location.host}/${next?.nextData?.id}`;
     }
 
     useEffect(() => {
