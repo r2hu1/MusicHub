@@ -1,3 +1,4 @@
+import Player from "@/components/cards/player";
 import MusicProvider from "@/components/music-provider";
 import Footer from "@/components/page/footer";
 import Header from "@/components/page/header";
@@ -12,6 +13,7 @@ export default function RootLayout({ children }) {
             </div>
             <MusicProvider>
                 {children}
+                <Player/>
             </MusicProvider>
             <Footer />
         </main>

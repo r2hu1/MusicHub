@@ -15,7 +15,6 @@ export default function MusicProvider({ children }) {
     return (
         <MusicContext.Provider value={{ music, setMusic }}>
             {children}
-            <Player />
         </MusicContext.Provider>
     )
 }

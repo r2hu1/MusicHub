@@ -2,12 +2,16 @@
 import { Button } from "@/components/ui/button";
 import { getSongsById, getSongsLyricsById } from "@/lib/fetch";
 import { Download, Pause, Play, RedoDot, UndoDot, Repeat, Loader2, Bookmark, BookmarkCheck, Repeat1, Share2 } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Slider } from "@/components/ui/slider";
 import { toast } from "sonner";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
+import { NextContext } from "@/hooks/use-context";
+import { Badge } from "@/components/ui/badge";
+import { useRouter } from "next/navigation";
+import Next from "@/components/cards/next";
 
 export default function Player({ id }) {
     const [data, setData] = useState([]);
@@ -19,6 +23,8 @@ export default function Player({ id }) {
     const [isLooping, setIsLooping] = useState(false);
     const [audioURL, setAudioURL] = useState("");
     const params = useSearchParams();
+    const next = useContext(NextContext);
+    const router = useRouter();
 
     const getSong = async () => {
         const get = await getSongsById(id);
@@ -87,6 +93,10 @@ export default function Player({ id }) {
         catch (e) {
             toast.error('Something went wrong!');
         }
+    }
+
+    if (currentTime === duration && !isLooping && duration !== 0) {
+        return router.push(`/${next?.nextData?.id}`);
     }
 
     useEffect(() => {
@@ -186,6 +196,9 @@ export default function Player({ id }) {
                     )}
                 </div>
             </div>
+            {next.nextData && (
+                <Next name={next.nextData.name} artist={next.nextData.artist} image={next.nextData.image} />
+            )}
         </div>
     )
 }
