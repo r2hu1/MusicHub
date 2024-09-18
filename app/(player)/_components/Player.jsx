@@ -92,15 +92,11 @@ export default function Player({ id }) {
         }
     }
 
-    
+
     useEffect(() => {
         getSong();
         localStorage.setItem("last-played", id);
         localStorage.removeItem("p");
-        if (currentTime === duration && !isLooping && duration !== 0) {
-            togglePlayPause();
-            return window.location.href = `https://${window.location.host}/${next?.nextData?.id}`;
-        }
         if (params.get("c")) {
             audioRef.current.currentTime = parseFloat(params.get("c") + 1);
         }
@@ -121,6 +117,16 @@ export default function Player({ id }) {
             }
         };
     }, []);
+    useEffect(() => {
+        const handleRedirect = () => {
+            if (currentTime === duration && !isLooping && duration !== 0) {
+                window.location.href = `https://${window.location.host}/${next?.nextData?.id}`;
+            }
+        };
+        if (isLooping || duration === 0) return;
+        const handle = window.setInterval(handleRedirect, 1000);
+        return () => window.clearInterval(handle);
+    }, [currentTime, duration, isLooping, next?.nextData?.id]);
     return (
         <div className="mb-3 mt-4">
             <audio onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} onLoadedData={() => setDuration(audioRef.current.duration)} autoPlay={playing} src={audioURL} ref={audioRef}></audio>
