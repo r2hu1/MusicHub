@@ -93,6 +93,7 @@ export default function Player({ id }) {
     }
 
     if (currentTime === duration && !isLooping && duration !== 0) {
+        togglePlayPause();
         return window.location.href = `https://${window.location.host}/${next?.nextData?.id}`;
     }
 
