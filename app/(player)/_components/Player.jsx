@@ -92,15 +92,15 @@ export default function Player({ id }) {
         }
     }
 
-    if (currentTime === duration && !isLooping && duration !== 0) {
-        togglePlayPause();
-        return window.location.href = `https://${window.location.host}/${next?.nextData?.id}`;
-    }
-
+    
     useEffect(() => {
         getSong();
         localStorage.setItem("last-played", id);
         localStorage.removeItem("p");
+        if (currentTime === duration && !isLooping && duration !== 0) {
+            togglePlayPause();
+            return window.location.href = `https://${window.location.host}/${next?.nextData?.id}`;
+        }
         if (params.get("c")) {
             audioRef.current.currentTime = parseFloat(params.get("c") + 1);
         }
