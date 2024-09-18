@@ -15,7 +15,7 @@ export default function Next({ name, artist, image }) {
                             {artist}
                         </span>
                     </p>
-                    <Badge>playing next</Badge>
+                    <Badge className="font-normal">playing next</Badge>
                 </div>
             </div>
         </div>
