@@ -41,7 +41,7 @@ export default function Recomandation({ id }) {
             <ScrollArea className="rounded-md mt-4">
                 {!loading && data && (
                     <div>
-                        <div className="flex gap-3">
+                        <div className="flex gap-6">
                             {data.map((song) => (
                                 <AlbumCard key={song.id} image={song.image[2].url} album={song.album.name} title={song.name} artist={song.artists.primary[0]?.name || "unknown"} id={song.id} />
                             ))}
