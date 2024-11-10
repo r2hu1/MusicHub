@@ -11,7 +11,7 @@ export default function SongCard({ title, image, artist, id, desc }) {
         localStorage.setItem("last-played", id);
     };
     return (
-        <div className="p-2 h-fit border border-border rounded-md bg-secondary/30 w-[200px]">
+        <div className="h-fit w-[200px]">
             <div className="overflow-hidden rounded-md">
                 {image ? (
                     <div onClick={() => { ids.setMusic(id); setLastPlayed(); }}>
@@ -24,7 +24,7 @@ export default function SongCard({ title, image, artist, id, desc }) {
             <div className="cursor-pointer">
                 {title ? (
                     <div onClick={() => { ids.setMusic(id); setLastPlayed(); }} className="mt-2 flex items-center justify-between">
-                        <h1 className="text-sm font-medium hover:opacity-70">{title.slice(0, 20)}{title.length > 20 && '...'}</h1>
+                        <h1 className="text-base">{title.slice(0, 20)}{title.length > 20 && '...'}</h1>
                     </div>
                 ) : (
                     <Skeleton className="w-[70%] h-4 mt-2" />
