@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function ArtistCard({ image, name, id }) {
     return (
-        <Link href={"/search/" + `${encodeURI(name.toLowerCase().split(" ").join("+"))}`} className="border border-border rounded-md bg-secondary/30 p-2">
+        <Link href={"/search/" + `${encodeURI(name.toLowerCase().split(" ").join("+"))}`}>
             <div className="overflow-hidden h-[100px] w-[100px] rounded-md">
                 <img src={image} alt={name} className="hover:scale-105 transition cursor-pointer rounded-md h-[100px] min-w-[100px] object-cover"/>
             </div>
