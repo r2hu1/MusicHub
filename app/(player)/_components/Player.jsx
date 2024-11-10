@@ -85,7 +85,9 @@ export default function Player({ id }) {
 
     const handleShare = () => {
         try {
-            navigator.share({ url: `${window.location.toString()}` });
+            navigator.share({
+                url: `https://${window.location.host}/${data.id}`
+            });
         }
         catch (e) {
             toast.error('Something went wrong!');
@@ -137,7 +139,7 @@ export default function Player({ id }) {
                         ) : (
                             <div className="relative">
                                 <img src={data.image[2].url} className="sm:h-[150px] h-full bg-secondary/50 rounded-2xl sm:w-[200px] w-full object-cover" />
-                                <img src={data.image[2].url} className="hidden dark:block absolute top-0 left-0 w-[110%] h-[110%] blur-3xl -z-10 opacity-40" />
+                                <img src={data.image[2].url} className="hidden dark:block absolute top-0 left-0 w-[110%] h-[110%] blur-3xl -z-10 opacity-50" />
                             </div>
                         )}
                     </div>
