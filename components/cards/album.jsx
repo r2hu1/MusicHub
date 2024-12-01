@@ -16,7 +16,7 @@ export default function AlbumCard({ title, image, artist, id, desc, lang }) {
             </div>
             <div className="cursor-pointer">
                 {title ? (
-                    <Link href={`/${id}`} className="mt-2 flex items-center justify-between">
+                    <Link href={`/${id}`} className="mt-3 flex items-center justify-between">
                         <h1 className="text-base">{title.slice(0, 20)}{title.length > 20 && '...'}</h1>
                     </Link>
                 ) : (
@@ -27,7 +27,7 @@ export default function AlbumCard({ title, image, artist, id, desc, lang }) {
                 )}
                 {artist ? (
                     <>
-                        <p className="text-xs mb-0.5 text-muted-foreground">by <span className="text-primary">{artist.slice(0, 20)}{artist.length > 20 && '...'}</span></p>
+                        <p className="text-sm font-light mb-1 text-muted-foreground">{artist.slice(0, 20)}{artist.length > 20 && '...'}</p>
                         {lang && <Badge variant="outline" className="font-normal">{lang}</Badge>}
                     </>
                 ) : (
