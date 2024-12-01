@@ -37,10 +37,10 @@ export default function Page() {
   return (
     <main className="px-6 py-5 md:px-20 lg:px-32">
       <div>
-        <h1 className="text-base">New Releases</h1>
+        <h1 className="text-base">Songs</h1>
         <p className="text-xs text-muted-foreground">Top new released songs.</p>
         <ScrollArea className="rounded-md mt-4">
-          <div className="flex gap-6">
+          <div className="flex gap-4">
             {latest.length ? latest.slice().reverse().map((song) => (
               <SongCard key={song.id} image={song.image[2].url} album={song.album} title={song.name} artist={song.artists.primary[0].name} id={song.id} />
             )) : (
@@ -63,10 +63,10 @@ export default function Page() {
       </div>
 
       <div className="mt-14">
-        <h1 className="text-base">Latest Albums</h1>
+        <h1 className="text-base">Albums</h1>
         <p className="text-xs text-muted-foreground">Top new released albums.</p>
         <ScrollArea className="rounded-md mt-6">
-          <div className="flex gap-6">
+          <div className="flex gap-4">
             {albums.length ? albums.slice().reverse().map((song) => (
               <AlbumCard key={song.id} lang={song.language} image={song.image[2].url} album={song.album} title={song.name} artist={song.artists.primary[0].name} id={`album/${song.id}`} />
             )) : (
@@ -89,10 +89,10 @@ export default function Page() {
       </div>
 
       <div className="mt-12">
-        <h1 className="text-base">Top Artists</h1>
-        <p className="text-xs text-muted-foreground">Most searched artists in this week.</p>
+        <h1 className="text-base">Artists</h1>
+        <p className="text-xs text-muted-foreground">Most searched artists.</p>
         <ScrollArea className="rounded-md mt-6">
-          <div className="flex gap-5">
+          <div className="flex gap-4">
             {latest.length ? [...new Set(latest.map(a => a.artists.primary[0].id))].map(id => (
               <ArtistCard key={id} id={id} image={latest.find(a => a.artists.primary[0].id === id).artists.primary[0].image[2]?.url || `https://az-avatar.vercel.app/api/avatar/?bgColor=0f0f0f0&fontSize=60&text=${latest.find(a => a.artists.primary[0].id === id).artists.primary[0].name.split("")[0].toUpperCase() || "UN"}`} name={latest.find(a => a.artists.primary[0].id === id).artists.primary[0].name} />
             )) : (
@@ -145,10 +145,10 @@ export default function Page() {
       </div>
 
       <div className="mt-12">
-        <h1 className="text-base">Trending Songs</h1>
+        <h1 className="text-base">Trending</h1>
         <p className="text-xs text-muted-foreground">Most played songs in this week.</p>
         <ScrollArea className="rounded-md mt-6">
-          <div className="flex gap-3">
+          <div className="flex gap-4">
             {popular.length ? popular.map((song) => (
               <SongCard key={song.id} id={song.id} image={song.image[2].url} title={song.name} artist={song.artists.primary[0].name} />
             )) : (
