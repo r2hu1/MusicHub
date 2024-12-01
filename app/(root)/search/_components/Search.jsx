@@ -38,7 +38,7 @@ export default function Search({ params }) {
                     <p className="text-xs text-muted-foreground">search results for "{decodeURI(query)}"</p>
                 </div>
                 <ScrollArea>
-                    <div className="flex gap-6">
+                    <div className="flex gap-4">
                         {songs.length ? songs.map((song) => (
                             <SongCard key={song.id} id={song.id} image={song.image[2].url} artist={song.artists.primary[0]?.name || "unknown"} title={song.name} />
                         )) : (
@@ -59,7 +59,7 @@ export default function Search({ params }) {
                     <p className="text-xs text-muted-foreground">Albums related to "{decodeURI(query)}"</p>
                 </div>
                 <ScrollArea className="whitespace-nowrap pb-4">
-                    <div className="flex gap-6">
+                    <div className="flex gap-4">
                         {albums.length ? albums.map((song) => (
                             <AlbumCard key={song.id} lang={song.language} desc={song.description || null} id={`album/${song.id}`} image={song.image[2].url} title={song.name} artist={song.artists.primary[0]?.name || "unknown"} />
                         )) : (
@@ -81,7 +81,7 @@ export default function Search({ params }) {
                 </div>
                 <ScrollArea>
                     {artists.length > 0 ? (
-                        <div className="flex gap-5">
+                        <div className="flex gap-4">
                             {[...new Set(artists.map(a => a.artists.primary[0]?.id))].map(id => (
                                 <ArtistCard key={id} id={id} image={artists.find(a => a.artists.primary[0]?.id === id).artists.primary[0]?.image[2]?.url || `https://az-avatar.vercel.app/api/avatar/?bgColor=0f0f0f0&fontSize=60&text=${artists.find(a => a.artists.primary[0]?.id === id).artists.primary[0]?.name.split("")[0].toUpperCase() || "U"}`} name={artists.find(a => a.artists.primary[0]?.id === id).artists?.primary[0]?.name || "unknown"} />
                             ))}
