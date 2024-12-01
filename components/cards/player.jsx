@@ -91,7 +91,7 @@ export default function Player() {
     return (
         <main>
             <audio autoPlay={playing} onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} onLoadedData={() => setDuration(audioRef.current.duration)} src={audioURL} ref={audioRef}></audio>
-            {values.music && <div className="shadow-lg fixed flex items-center rounded-md m-2.5 bottom-0 right-0 left-0 border-border overflow-hidden border z-50 bg-background p-3 md:ml-16 md:mr-16 lg:ml-28 lg:mr-28 gap-3">
+            {values.music && <div className="shadow-lg fixed flex items-center bottom-0 right-0 left-0 border-border overflow-hidden border-t z-50 bg-background p-3 gap-3">
                 <div className="relative">
                     <Button size="icon" variant="secondary" className="h-full w-full bg-secondary/30 hover:bg-secondary/50 backdrop-blur-sm absolute z-10" onClick={togglePlayPause}>{playing ? <Pause className="h-6 w-6" /> : <Play className="h-6 w-6" />}</Button>
                     <img src={data.image ? data?.image[1]?.url : ""} alt={data?.name} className="rounded-md h-20 min-w-20 hover:opacity-85 transition" />
@@ -108,19 +108,16 @@ export default function Player() {
                             )}
                             {!data?.artists?.primary[0]?.name ? <Skeleton className="h-3 w-14 mt-1" /> : (
                                 <>
-                                    <h2 className="block md:hidden text-xs -mt-0.5 text-muted-foreground">by <span className="text-foreground">{data?.artists?.primary[0]?.name.slice(0, 20)}{data?.artists?.primary[0]?.name.length > 20 ? ".." : ""}</span></h2>
-                                    <h2 className="hidden md:block text-xs -mt-0.5 text-muted-foreground">by <span className="text-foreground">{data?.artists?.primary[0]?.name}</span></h2>
+                                    <h2 className="block md:hidden text-xs -mt-0.5 text-muted-foreground">{data?.artists?.primary[0]?.name.slice(0, 20)}{data?.artists?.primary[0]?.name.length > 20 ? ".." : ""}</h2>
+                                    <h2 className="hidden md:block text-xs -mt-0.5 text-muted-foreground">{data?.artists?.primary[0]?.name}</h2>
                                 </>
                             )}
                         </div>
                         <div className="flex items-center gap-1.5 -mt-3.5">
-                            {/* <Button asChild size="icon" className="p-0 h-8 w-8" variant={"outline"}>
-                                <Link href={`/${values.music}?c=${currentTime}`}><ExternalLink className="h-3.5 w-3.5" /></Link>
-                            </Button> */}
-                            <Button size="icon" className="p-0 h-8 w-8" variant={!isLooping ? "outline" : "secondary"} onClick={loopSong}>
+                            <Button size="icon" className="p-0 h-8 w-8" variant={!isLooping ? "ghost" : "secondary"} onClick={loopSong}>
                                 {!isLooping ? <Repeat className="h-3.5 w-3.5" /> : <Repeat1 className="h-3.5 w-3.5" />}
                             </Button>
-                            <Button size="icon" className="p-0 h-8 w-8" onClick={() => { values.setMusic(null); localStorage.clear(); audioRef.current.currentTime = 0; audioRef.current.src = null; setAudioURL(null); }}>
+                            <Button size="icon" className="p-0 h-8 w-8" variant="outline" onClick={() => { values.setMusic(null); localStorage.clear(); audioRef.current.currentTime = 0; audioRef.current.src = null; setAudioURL(null); }}>
                                 <X className="h-3.5 w-3.5" />
                             </Button>
                         </div>
@@ -130,9 +127,9 @@ export default function Player() {
                             <Slider onValueChange={handleSeek} value={[currentTime]} max={duration} className="w-full" />
                         )}
                         <div className="flex items-center justify-between">
-                            <span className="text-xs text-muted-foreground">{formatTime(currentTime)}</span>
-                            {!duration ? <Skeleton className="h-3 w-10" /> : (
-                                <span className="text-xs text-muted-foreground">{formatTime(duration)}</span>
+                            <span className="text-[10px] font-light text-muted-foreground">{formatTime(currentTime)}</span>
+                            {!duration ? <Skeleton className="h-2 w-10" /> : (
+                                <span className="text-[10px] font-light text-muted-foreground">{formatTime(duration)}</span>
                             )}
                         </div>
                     </div>
