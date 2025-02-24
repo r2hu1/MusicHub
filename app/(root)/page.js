@@ -37,11 +37,13 @@ export default function Page() {
   return (
     <main className="px-6 py-5 md:px-20 lg:px-32">
       <div>
-        <h1 className="text-base">Songs</h1>
-        <p className="text-xs text-muted-foreground">Top new released songs.</p>
+        <div className="grid">
+          <h1 className="text-base">Songs</h1>
+          <p className="text-xs text-muted-foreground">Top new released songs.</p>
+        </div>
         <ScrollArea className="rounded-md mt-4">
           <div className="flex gap-4">
-            {latest.length ? latest.slice().reverse().map((song) => (
+            {latest.length ? latest.slice().map((song) => (
               <SongCard key={song.id} image={song.image[2].url} album={song.album} title={song.name} artist={song.artists.primary[0].name} id={song.id} />
             )) : (
               <>
@@ -67,7 +69,7 @@ export default function Page() {
         <p className="text-xs text-muted-foreground">Top new released albums.</p>
         <ScrollArea className="rounded-md mt-6">
           <div className="flex gap-4">
-            {albums.length ? albums.slice().reverse().map((song) => (
+            {albums.length ? albums.slice().map((song) => (
               <AlbumCard key={song.id} lang={song.language} image={song.image[2].url} album={song.album} title={song.name} artist={song.artists.primary[0].name} id={`album/${song.id}`} />
             )) : (
               <>

@@ -8,6 +8,9 @@ export default function RootLayout({ children }) {
     return (
         <main>
             <Header />
+            <div className="px-6 sm:hidden mb-4">
+                <Search />
+            </div>
             <MusicProvider>
                 {children}
                 <Player />
