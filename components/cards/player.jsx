@@ -9,6 +9,7 @@ import { MusicContext } from "@/hooks/use-context";
 import { toast } from "sonner";
 import { Skeleton } from "../ui/skeleton";
 import { IoPause } from "react-icons/io5";
+import { useMusic } from "../music-provider";
 
 export default function Player() {
     const [data, setData] = useState([]);
@@ -59,18 +60,19 @@ export default function Player() {
         setIsLooping(!isLooping);
     };
 
+    const { current, setCurrent } = useMusic();
     useEffect(() => {
         if (values.music) {
             getSong();
-            if (localStorage.getItem("c")) {
-                audioRef.current.currentTime = parseFloat(localStorage.getItem("c") + 1);
-                localStorage.removeItem("c");
+            if (current) {
+                audioRef.current.currentTime = parseFloat(current + 1);
             }
             setPlaying(localStorage.getItem("p") == "true" && true || !localStorage.getItem("p") && true);
             const handleTimeUpdate = () => {
                 try {
                     setCurrentTime(audioRef.current.currentTime);
                     setDuration(audioRef.current.duration);
+                    setCurrent(audioRef.current.currentTime);
                 }
                 catch (e) {
                     setPlaying(false);
@@ -96,8 +98,8 @@ export default function Player() {
                             <div>
                                 {!data?.name ? <Skeleton className="h-4 w-32" /> : (
                                     <>
-                                        <Link href={`/${values.music}?c=${currentTime}`} className="text-base hover:opacity-85 transition font-medium flex md:hidden gap-2 items-center">{data?.name?.slice(0, 10)}{data?.name?.length >= 11 ? ".." : ""}<ExternalLink className="h-3.5 w-3.5 text-muted-foreground" /></Link>
-                                        <Link href={`/${values.music}?c=${currentTime}`} className="text-base hover:opacity-85 transition font-medium gap-2 items-center hidden md:flex">{data?.name}<ExternalLink className="h-3.5 w-3.5 text-muted-foreground" /></Link>
+                                        <Link href={`/${values.music}`} className="text-base hover:opacity-85 transition font-medium flex md:hidden gap-2 items-center">{data?.name?.slice(0, 10)}{data?.name?.length >= 11 ? ".." : ""}<ExternalLink className="h-3.5 w-3.5 text-muted-foreground" /></Link>
+                                        <Link href={`/${values.music}`} className="text-base hover:opacity-85 transition font-medium gap-2 items-center hidden md:flex">{data?.name}<ExternalLink className="h-3.5 w-3.5 text-muted-foreground" /></Link>
                                     </>
                                 )}
                                 {!data?.artists?.primary[0]?.name ? <Skeleton className="h-3 w-14 mt-1" /> : (

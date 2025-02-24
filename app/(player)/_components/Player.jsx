@@ -10,6 +10,7 @@ import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { NextContext } from "@/hooks/use-context";
 import Next from "@/components/cards/next";
+import { useMusic } from "@/components/music-provider";
 
 export default function Player({ id }) {
     const [data, setData] = useState([]);
@@ -22,6 +23,7 @@ export default function Player({ id }) {
     const [audioURL, setAudioURL] = useState("");
     const params = useSearchParams();
     const next = useContext(NextContext);
+    const { current, setCurrent } = useMusic();
 
     const getSong = async () => {
         const get = await getSongsById(id);
@@ -99,8 +101,8 @@ export default function Player({ id }) {
         getSong();
         localStorage.setItem("last-played", id);
         localStorage.removeItem("p");
-        if (params.get("c")) {
-            audioRef.current.currentTime = parseFloat(params.get("c") + 1);
+        if (current) {
+            audioRef.current.currentTime = parseFloat(current + 1);
         }
         const handleTimeUpdate = () => {
             try {
