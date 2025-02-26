@@ -60,7 +60,7 @@ export default function Page() {
               </>
             )}
           </div>
-          <ScrollBar orientation="horizontal" className="hidden" />
+          <ScrollBar orientation="horizontal" className="hidden sm:flex" />
         </ScrollArea>
       </div>
 
@@ -86,7 +86,7 @@ export default function Page() {
               </>
             )}
           </div>
-          <ScrollBar orientation="horizontal" className="hidden" />
+          <ScrollBar orientation="horizontal" className="hidden sm:flex" />
         </ScrollArea>
       </div>
 
@@ -142,7 +142,7 @@ export default function Page() {
               </>
             )}
           </div>
-          <ScrollBar orientation="horizontal" className="hidden" />
+          <ScrollBar orientation="horizontal" className="hidden sm:flex" />
         </ScrollArea>
       </div>
 
@@ -168,7 +168,7 @@ export default function Page() {
               </>
             )}
           </div>
-          <ScrollBar orientation="horizontal" className="hidden" />
+          <ScrollBar orientation="horizontal" className="hidden sm:flex" />
         </ScrollArea>
       </div>
     </main>

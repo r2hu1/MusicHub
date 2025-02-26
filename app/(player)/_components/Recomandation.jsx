@@ -17,20 +17,25 @@ export default function Recomandation({ id }) {
         await getSongsSuggestions(id)
             .then(res => res.json())
             .then(data => {
-                setData(data.data);
-                let d = data.data[Math.floor(Math.random() * data.data.length)];
-                next.setNextData({
-                    id: d.id,
-                    name: d.name,
-                    artist: d.artists.primary[0]?.name || "unknown",
-                    album: d.album.name,
-                    image: d.image[1].url
-                });
+                if (data) {
+                    setData(data.data);
+                    let d = data.data[Math.floor(Math.random() * data?.data?.length)];
+                    next.setNextData({
+                        id: d.id,
+                        name: d.name,
+                        artist: d.artists.primary[0]?.name || "unknown",
+                        album: d.album.name,
+                        image: d.image[1].url
+                    });
+                }
+                else {
+                    setData(false);
+                }
                 setLoading(false);
             });
-        }
-        useEffect(() => {
-            getData();
+    }
+    useEffect(() => {
+        getData();
     }, [])
     return (
         <section className="py-10 px-6 md:px-20 lg:px-32">
@@ -72,7 +77,7 @@ export default function Recomandation({ id }) {
                         </div>
                     </div>
                 )}
-                <ScrollBar orientation="horizontal" className="hidden" />
+                <ScrollBar orientation="horizontal" className="hidden sm:flex" />
             </ScrollArea>
             {!loading && !data && (
                 <div className="flex items-center justify-center text-center h-[100px]">

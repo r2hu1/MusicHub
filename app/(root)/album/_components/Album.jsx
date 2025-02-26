@@ -43,7 +43,7 @@ export default function Album({ id }) {
                                     <SongCard key={song.id} image={song.image[2].url} title={song.name} artist={song.artists.primary[0].name} id={song.id} />
                                 ))}
                             </div>
-                            <ScrollBar orientation="horizontal" className="hidden" />
+                            <ScrollBar orientation="horizontal" className="hidden sm:flex" />
                         </ScrollArea>
                     </div>
                 </div>
@@ -82,7 +82,7 @@ export default function Album({ id }) {
                                 <Skeleton className="h-3 w-20 -mt-1" />
                             </div>
                         </div>
-                        <ScrollBar orientation="horizontal" className="hidden" />
+                        <ScrollBar orientation="horizontal" className="hidden sm:flex" />
                     </ScrollArea>
                 </>
             )
