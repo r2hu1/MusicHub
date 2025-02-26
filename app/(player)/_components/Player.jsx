@@ -108,7 +108,7 @@ export default function Player({ id }) {
             try {
                 setCurrentTime(audioRef.current.currentTime);
                 setDuration(audioRef.current.duration);
-                localStorage.setItem("c", audioRef.current.currentTime);
+                setCurrent(audioRef.current.currentTime);
             }
             catch (e) {
                 setPlaying(false);
