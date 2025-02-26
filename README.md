@@ -7,7 +7,7 @@ MusicHub is a web music app built using Next.js 14, App Router, and an unofficia
 
 <br/>
 
-![Homepage](/public/home.png)
+![Homepage](/public/feed.png)
 
 ## Features
 
@@ -20,11 +20,11 @@ MusicHub is a web music app built using Next.js 14, App Router, and an unofficia
 
 ### Homepage
 
-![Homepage](/public/home.png)
+![Homepage](/public/feed.png)
 
 ### Search Page
 
-![Search Page](/public/search.png)
+![Search Page](/public/search-feed.png)
 
 ### Album Page
 
@@ -34,11 +34,11 @@ MusicHub is a web music app built using Next.js 14, App Router, and an unofficia
 
 Player
 
-![Music Page](/public/player.png)
+![Music Page](/public/player-1.png)
 
 Mobile Player
 
-![Music Page](/public/player2.png)
+![Music Page](/public/player-2.png)
 
 ## Installation
 
