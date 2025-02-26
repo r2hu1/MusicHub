@@ -11,7 +11,7 @@ export default function Header() {
     const path = usePathname();
     return (
         <header className="grid gap-2 pt-5 px-5 pb-5 md:px-20 lg:px-32">
-            <div className="flex items-center sm:justify-between gap-2">
+            <div className="flex items-center sm:justify-between w-full gap-2">
                 {path == "/" ? (
                     <div className="flex items-center gap-1">
                         <Logo />
@@ -20,10 +20,11 @@ export default function Header() {
                 ) : (
                     <div className="flex justify-between w-full items-center gap-1">
                         <Logo />
-                        <Button className="rounded-full h-8 px-3" asChild><Link href="/" className="flex items-center gap-1"><ChevronLeft className="w-4 h-4" />Back</Link></Button>
+                        <Button className="rounded-full sm:hidden h-8 px-3" asChild><Link href="/" className="flex items-center gap-1"><ChevronLeft className="w-4 h-4" />Back</Link></Button>
                     </div>
                 )}
-                <div className="hidden w-full max-w-sm sm:block">
+                <div className="hidden sm:flex items-center gap-1 w-full max-w-md">
+                    <Button className="h-10 px-3" asChild><Link href="/" className="flex items-center gap-1"><ChevronLeft className="w-4 h-4" />Back</Link></Button>
                     <Search />
                 </div>
             </div>

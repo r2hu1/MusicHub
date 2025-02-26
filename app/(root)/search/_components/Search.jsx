@@ -51,7 +51,7 @@ export default function Search({ params }) {
                             </>
                         )}
                     </div>
-                    <ScrollBar orientation="horizontal" className="hidden" />
+                    <ScrollBar orientation="horizontal" className="hidden sm:flex" />
                 </ScrollArea>
 
                 <div className="mt-8">
@@ -72,7 +72,7 @@ export default function Search({ params }) {
                             </>
                         )}
                     </div>
-                    <ScrollBar orientation="horizontal" className="hidden" />
+                    <ScrollBar orientation="horizontal" className="hidden sm:flex" />
                 </ScrollArea>
 
                 <div className="mt-4">
@@ -110,7 +110,7 @@ export default function Search({ params }) {
                             </div>
                         </div>
                     )}
-                    <ScrollBar orientation="horizontal" className="hidden" />
+                    <ScrollBar orientation="horizontal" className="hidden sm:flex" />
                 </ScrollArea>
             </div>
         </div>
