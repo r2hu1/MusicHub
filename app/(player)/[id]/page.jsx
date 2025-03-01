@@ -8,7 +8,6 @@ export const generateMetadata = async ({ params }) => {
     const title = await getSongsById(params.id);
     const data = await title.json();
     const song = data?.data[0];
-
     return {
         title: song.name,
         description: `Listen to "${song.name}" by ${data?.artists?.primary[0]?.name || "unknown"} from the album "${song.album?.name}".`,
@@ -19,7 +18,7 @@ export const generateMetadata = async ({ params }) => {
             url: song.url,
             images: [
                 {
-                    url: song.image?.[0]?.url || "https://your-music-player.com/default-image.jpg",
+                    url: song.image[2]?.url || song.image[1]?.url || song.image[0]?.url,
                     width: 1200,
                     height: 630,
                     alt: song.name,
