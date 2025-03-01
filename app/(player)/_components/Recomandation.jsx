@@ -1,6 +1,7 @@
 "use client"
 
 import AlbumCard from "@/components/cards/album";
+import Next from "@/components/cards/next";
 import SongCard from "@/components/cards/song";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -41,44 +42,33 @@ export default function Recomandation({ id }) {
         <section className="py-10 px-6 md:px-20 lg:px-32">
             <div>
                 <h1 className="text-base font-medium">Recomandation</h1>
-                <p className="text-xs text-muted-foreground">Related to your search</p>
+                <p className="text-xs text-muted-foreground">You might like this</p>
             </div>
-            <ScrollArea className="rounded-md mt-4">
+            <div className="rounded-md mt-6">
                 {!loading && data && (
-                    <div>
-                        <div className="flex gap-6">
-                            {data.map((song) => (
-                                <AlbumCard key={song.id} image={song.image[2].url} album={song.album.name} title={song.name} artist={song.artists.primary[0]?.name || "unknown"} id={song.id} />
-                            ))}
-                        </div>
+                    <div className="grid sm:grid-cols-2 gap-3">
+                        {data.map((song) => (
+                            <Next next={false} key={song.id} image={song.image[2].url} name={song.name} artist={song.artists.primary[0]?.name || "unknown"} id={song.id} />
+                        ))}
                     </div>
                 )}
                 {loading && (
-                    <div className="flex gap-6">
+                    <div className="grid gap-3">
                         <div className="grid gap-2">
-                            <Skeleton className="h-[200px] w-[200px]" />
-                            <Skeleton className="h-4 w-28" />
-                            <Skeleton className="h-3 w-20 -mt-1" />
+                            <Skeleton className="h-14 w-full" />
                         </div>
                         <div className="grid gap-2">
-                            <Skeleton className="h-[200px] w-[200px]" />
-                            <Skeleton className="h-4 w-28" />
-                            <Skeleton className="h-3 w-20 -mt-1" />
+                            <Skeleton className="h-14 w-full" />
                         </div>
                         <div className="grid gap-2">
-                            <Skeleton className="h-[200px] w-[200px]" />
-                            <Skeleton className="h-4 w-28" />
-                            <Skeleton className="h-3 w-20 -mt-1" />
+                            <Skeleton className="h-14 w-full" />
                         </div>
                         <div className="grid gap-2">
-                            <Skeleton className="h-[200px] w-[200px]" />
-                            <Skeleton className="h-4 w-28" />
-                            <Skeleton className="h-3 w-20 -mt-1" />
+                            <Skeleton className="h-14 w-full" />
                         </div>
                     </div>
                 )}
-                <ScrollBar orientation="horizontal" className="hidden sm:flex" />
-            </ScrollArea>
+            </div>
             {!loading && !data && (
                 <div className="flex items-center justify-center text-center h-[100px]">
                     <p className="text-sm text-muted-foreground">No recomandation for this song.</p>
