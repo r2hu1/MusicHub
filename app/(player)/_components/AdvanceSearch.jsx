@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/credenza";
 import Link from "next/link";
 import { getSongsByQuery } from "@/lib/fetch";
-import { Loader } from "lucide-react";
+import { Loader, SearchIcon } from "lucide-react";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
 import { Play } from "lucide-react";
@@ -64,11 +64,16 @@ export default function AdvanceSearch() {
     }, [query]);
 
     return (
-        <div className="px-6 !mb-10 md:px-20 lg:px-32">
+        <div className="px-6 !-mb-3 md:px-20 lg:px-32">
             <Credenza>
                 <CredenzaTrigger asChild>
-                    <div className="flex cursor-text h-10 w-full items-center rounded-md border border-input bg-background px-3 py-2 text-sm text-muted-foreground">
-                        Look for songs by name...
+                    <div className="flex items-center relative z-10 w-full">
+                        <div className="flex bg-secondary/50 text-foreground/80 items-center h-10 w-full rounded-lg border border-border px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50">
+                            Look for songs by name...
+                        </div>
+                        <Button size="icon" variant="ghost" className="absolute right-0 rounded-xl rounded-l-none bg-none">
+                            <SearchIcon className="w-4 h-4" />
+                        </Button>
                     </div>
                 </CredenzaTrigger>
                 <CredenzaContent>
@@ -78,11 +83,11 @@ export default function AdvanceSearch() {
                             <Button className="min-w-10" size="icon" asChild={query != ""}>
                                 {query != "" ? (
                                     <Link href={`/search/${query}`}>
-                                     <Search className="h-4 w-4" />
+                                        <Search className="h-4 w-4" />
                                     </Link>
-                                    ) : (
-                                     <Search className="h-4 w-4" />
-                                 )}
+                                ) : (
+                                    <Search className="h-4 w-4" />
+                                )}
                             </Button>
                         </CredenzaTitle>
                     </CredenzaHeader>

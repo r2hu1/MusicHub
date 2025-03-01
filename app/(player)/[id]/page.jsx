@@ -45,7 +45,7 @@ export default function Page({ params }) {
             {/* <div className="px-6 md:hidden">
                 <Search />
             </div> */}
-            {/* <AdvanceSearch/> */}
+            <AdvanceSearch />
             <Player id={params.id} />
             <Recomandation id={params.id} />
         </div>
