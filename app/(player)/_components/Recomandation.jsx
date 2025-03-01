@@ -46,7 +46,7 @@ export default function Recomandation({ id }) {
             </div>
             <div className="rounded-md mt-6">
                 {!loading && data && (
-                    <div className="grid sm:grid-cols-2 gap-3">
+                    <div className="grid sm:grid-cols-2 gap-3 overflow-hidden">
                         {data.map((song) => (
                             <Next next={false} key={song.id} image={song.image[2].url} name={song.name} artist={song.artists.primary[0]?.name || "unknown"} id={song.id} />
                         ))}
