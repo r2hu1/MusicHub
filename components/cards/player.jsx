@@ -98,7 +98,7 @@ export default function Player() {
                 <div className="grid gap-2 p-3 pt-0">
                     <div className="flex items-center justify-between gap-3">
                         <div className="relative flex items-center gap-2 w-full">
-                            <img src={data.image ? data?.image[1]?.url : ""} alt={data?.name} className="rounded-md aspect-square h-12 hover:opacity-85 transition" />
+                            <img src={data.image ? data?.image[1]?.url : ""} alt={data?.name} className="rounded-md aspect-square h-12 w-12 bg-secondary hover:opacity-85 transition cursor-pointer" />
                             <img src={data.image ? data?.image[1]?.url : ""} alt={data?.name} className="rounded-md h-[110%] min-w-[110%] opacity-40 hidden dark:block absolute top-0 left-0 right-0 blur-3xl -z-10" />
                             <div>
                                 {!data?.name ? <Skeleton className="h-4 w-32" /> : (
