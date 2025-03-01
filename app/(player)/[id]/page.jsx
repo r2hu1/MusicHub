@@ -42,10 +42,6 @@ export const generateMetadata = async ({ params }) => {
 export default function Page({ params }) {
     return (
         <div>
-            {/* <div className="px-6 md:hidden">
-                <Search />
-            </div> */}
-            <AdvanceSearch />
             <Player id={params.id} />
             <Recomandation id={params.id} />
         </div>
