@@ -23,9 +23,11 @@ export default function Header() {
                         <Button className="rounded-full sm:hidden h-8 px-3" asChild><Link href="/" className="flex items-center gap-1"><ChevronLeft className="w-4 h-4" />Back</Link></Button>
                     </div>
                 )}
-                <div className="hidden sm:flex items-center gap-1 w-full max-w-md">
-                    <Button className="h-10 px-3" asChild><Link href="/" className="flex items-center gap-1"><ChevronLeft className="w-4 h-4" />Back</Link></Button>
+                <div className="hidden sm:flex items-center gap-3 w-full max-w-md">
                     <Search />
+                    {path != "/" && (
+                        <Button className="h-10 px-3" asChild><Link href="/" className="flex items-center gap-1"><ChevronLeft className="w-4 h-4" />Back</Link></Button>
+                    )}
                 </div>
             </div>
         </header>
