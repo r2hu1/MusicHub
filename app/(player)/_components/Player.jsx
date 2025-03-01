@@ -136,7 +136,7 @@ export default function Player({ id }) {
                             <Skeleton className="md:w-[130px] aspect-square rounded-2xl md:h-[150px]" />
                         ) : (
                             <div className="relative">
-                                <img src={data.image[2].url} className="sm:h-[150px] h-full aspect-square bg-secondary/50 rounded-2xl sm:w-[200px] w-[250px] sm:mx-0 mx-auto object-cover" />
+                                <img src={data.image[2].url} className="sm:h-[150px] h-full aspect-square bg-secondary/50 rounded-2xl sm:w-[200px] w-full sm:mx-0 mx-auto object-cover" />
                                 <img src={data.image[2].url} className="hidden dark:block absolute top-0 left-0 w-[110%] h-[110%] blur-3xl -z-10 opacity-50" />
                             </div>
                         )}
@@ -162,37 +162,38 @@ export default function Player({ id }) {
                         </div>
                     ) : (
                         <div className="flex flex-col justify-between w-full">
-                            <div className="text-center sm:text-left sm:mt-0 mt-3">
+                            <div className="sm:mt-0 mt-3">
                                 <h1 className="text-xl font-bold md:max-w-lg">{data.name}</h1>
                                 <p className="text-sm text-muted-foreground">by <Link href={"/search/" + `${encodeURI(data.artists.primary[0].name.toLowerCase().split(" ").join("+"))}`} className="text-foreground">{data.artists.primary[0]?.name || "unknown"}</Link></p>
                             </div>
-                            <div className="grid gap-2 w-full mt-8 sm:mt-0 px-2 sm:px-0">
+                            <div className="grid gap-2 w-full mt-5 sm:mt-0">
                                 <Slider onValueChange={handleSeek} value={[currentTime]} max={duration} className="w-full" />
                                 <div className="w-full flex items-center justify-between">
                                     <span className="text-sm">{formatTime(currentTime)}</span>
                                     <span className="text-sm">{formatTime(duration)}</span>
                                 </div>
-                                <div className="flex items-center justify-between sm:mt-2">
-                                    <div className="flex items-center justify-center sm:justify-normal w-full gap-3 sm:mt-0">
-                                        <Button size="icon" variant="outline" onClick={loopSong}>
+                                <div className="flex items-center mt-1 justify-between w-full sm:mt-2">
+                                    <Button variant={playing ? "default" : "secondary"} className="gap-1 rounded-full" onClick={togglePlayPause}>
+                                        {playing ? (
+                                            <IoPause className="h-4 w-4" />
+                                        ) : (
+                                            <Play className="h-4 w-4" />
+                                        )}
+                                        {playing ? "Pause" : "Play"}
+                                    </Button>
+                                    <div className="flex items-center gap-2 sm:gap-3 sm:mt-0">
+                                        <Button size="icon" variant="ghost" onClick={loopSong}>
                                             {!isLooping ? <Repeat className="h-4 w-4" /> : <Repeat1 className="h-4 w-4" />}
                                         </Button>
-                                        <Button size="icon" variant={playing ? "default" : "secondary"} className="h-14 sm:h-10 sm:w-10 w-14" onClick={togglePlayPause}>
-                                            {playing ? (
-                                                <IoPause className="h-6 sm:h-4 sm:w-4 w-6" />
-                                            ) : (
-                                                <Play className="h-6 sm:h-4 sm:w-4 w-6" />
-                                            )}
-                                        </Button>
-                                        <Button size="icon" variant="outline" onClick={downloadSong}>
+                                        <Button size="icon" variant="ghost" onClick={downloadSong}>
                                             {isDownloading ? (
                                                 <Loader2 className="h-4 w-4 animate-spin" />
                                             ) : (
                                                 <Download className="h-4 w-4" />
                                             )}
                                         </Button>
+                                        <Button size="icon" variant="ghost" onClick={handleShare}><Share2 className="h-4 w-4" /></Button>
                                     </div>
-                                    {/* <Button size="icon" variant="ghost" onClick={handleShare}><Share2 className="h-4 w-4" /></Button> */}
                                 </div>
                             </div>
                         </div>
@@ -200,7 +201,9 @@ export default function Player({ id }) {
                 </div>
             </div>
             {next.nextData && (
-                <Next name={next.nextData.name} artist={next.nextData.artist} image={next.nextData.image} />
+                <div className="mt-10 -mb-3 px-6 md:px-20 lg:px-32">
+                    <Next name={next.nextData.name} artist={next.nextData.artist} image={next.nextData.image} id={next.nextData.id} />
+                </div>
             )}
         </div>
     )
