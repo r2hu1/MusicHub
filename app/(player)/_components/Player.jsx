@@ -24,6 +24,7 @@ import { NextContext } from "@/hooks/use-context";
 import Next from "@/components/cards/next";
 import { useMusic } from "@/components/music-provider";
 import { IoPause } from "react-icons/io5";
+import { useDownloadProgress } from "@/components/download-progress";
 
 export default function Player({ id }) {
   const [data, setData] = useState([]);
@@ -34,9 +35,9 @@ export default function Player({ id }) {
   const [isDownloading, setIsDownloading] = useState(false);
   const [isLooping, setIsLooping] = useState(false);
   const [audioURL, setAudioURL] = useState("");
-  const [downloadProgress, setDownloadProgress] = useState("");
   const params = useSearchParams();
   const next = useContext(NextContext);
+  const { setCurrState, setTitle } = useDownloadProgress();
   const { current, setCurrent } = useMusic();
 
   const getSong = async () => {
@@ -71,7 +72,8 @@ export default function Player({ id }) {
 
   const downloadSong = async () => {
     setIsDownloading(true);
-    setDownloadProgress(0);
+    setCurrState(0);
+    setTitle(data.name);
 
     const response = await fetch(audioURL);
     if (!response.ok) throw new Error("Failed to fetch");
@@ -96,7 +98,7 @@ export default function Player({ id }) {
 
         if (total) {
           const progress = Math.round((loaded / total) * 100);
-          setDownloadProgress(progress);
+          setCurrState(progress);
         }
       }
     }
@@ -112,7 +114,8 @@ export default function Player({ id }) {
 
     toast.success("Downloaded!");
     setIsDownloading(false);
-    setDownloadProgress(100);
+    setCurrState(0);
+    setTitle(null);
   };
 
   const handleSeek = (e) => {
@@ -179,7 +182,6 @@ export default function Player({ id }) {
         ref={audioRef}
       ></audio>
       <div className="grid gap-6 w-full">
-        {downloadProgress}
         <div className="sm:flex px-6 md:px-20 lg:px-32 grid gap-5 w-full">
           <div>
             {data.length <= 0 ? (
