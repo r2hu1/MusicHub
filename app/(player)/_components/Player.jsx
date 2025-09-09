@@ -37,7 +37,7 @@ export default function Player({ id }) {
   const [audioURL, setAudioURL] = useState("");
   const params = useSearchParams();
   const next = useContext(NextContext);
-  const { setCurrState, setTitle } = useDownloadProgress();
+  const { currState, setCurrState, setTitle } = useDownloadProgress();
   const { current, setCurrent } = useMusic();
 
   const getSong = async () => {
@@ -267,9 +267,13 @@ export default function Player({ id }) {
                         <Repeat1 className="h-4 w-4" />
                       )}
                     </Button>
-                    <Button size="icon" variant="ghost" onClick={downloadSong}>
+                    <Button
+                      size="icon"
+                      variant={!isDownloading ? "ghost" : "secondary"}
+                      onClick={downloadSong}
+                    >
                       {isDownloading ? (
-                        <Loader2 className="h-4 w-4 animate-spin" />
+                        currState
                       ) : (
                         <Download className="h-4 w-4" />
                       )}

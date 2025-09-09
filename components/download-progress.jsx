@@ -13,7 +13,8 @@ export default function DownloadProgressProvider({ children }) {
     <ProgressContext.Provider
       value={{ currState, setCurrState, title, setTitle }}
     >
-      {title && (
+      {/* Maybe in future*/}
+      {/* {title && (
         <div className="px-6 space-y-1 md:px-20 lg:px-32 py-4 bg-secondary/50">
           <h1 className="max-w-xs gap-0 text-sm text-secondary-foreground/80">
             Downloading{" "}
@@ -29,7 +30,7 @@ export default function DownloadProgressProvider({ children }) {
             </span>
           </div>
         </div>
-      )}
+      )}*/}
       {children}
     </ProgressContext.Provider>
   );
