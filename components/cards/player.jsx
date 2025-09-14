@@ -14,11 +14,10 @@ import {
 import { Slider } from "../ui/slider";
 import { getSongsById } from "@/lib/fetch";
 import Link from "next/link";
-import { MusicContext } from "@/hooks/use-context";
+import { MusicContext, useMusicProvider } from "@/hooks/use-context";
 import { toast } from "sonner";
 import { Skeleton } from "../ui/skeleton";
 import { IoPause } from "react-icons/io5";
-import { useMusic } from "../music-provider";
 
 export default function Player() {
   const [data, setData] = useState([]);
@@ -28,10 +27,10 @@ export default function Player() {
   const [duration, setDuration] = useState(0);
   const [audioURL, setAudioURL] = useState("");
   const [isLooping, setIsLooping] = useState(false);
-  const values = useContext(MusicContext);
+  const { music, setMusic, current, setCurrent } = useMusicProvider();
 
   const getSong = async () => {
-    const get = await getSongsById(values.music);
+    const get = await getSongsById(music);
     const data = await get.json();
     setData(data.data[0]);
     if (data?.data[0]?.downloadUrl[2]?.url) {
@@ -69,9 +68,8 @@ export default function Player() {
     setIsLooping(!isLooping);
   };
 
-  const { current, setCurrent } = useMusic();
   useEffect(() => {
-    if (values.music) {
+    if (music) {
       getSong();
       if (current) {
         audioRef.current.currentTime = parseFloat(current + 1);
@@ -96,7 +94,7 @@ export default function Player() {
         }
       };
     }
-  }, [values.music]);
+  }, [music]);
   return (
     <main>
       <audio
@@ -107,7 +105,7 @@ export default function Player() {
         src={audioURL}
         ref={audioRef}
       ></audio>
-      {values.music && (
+      {music && (
         <div className="shadow-lg fixed grid bottom-0 max-w-[500px] md:border-l md:border-r md:rounded-md md:!rounded-b-none md:ml-auto right-0 left-0 border-border overflow-hidden border-t-none z-50 bg-background gap-3">
           <div className="w-full">
             {!duration ? (
@@ -141,7 +139,7 @@ export default function Player() {
                     <Skeleton className="h-4 w-32" />
                   ) : (
                     <Link
-                      href={`/${values.music}`}
+                      href={`/${music}`}
                       className="text-base flex hover:opacity-85 transition font-medium gap-2 items-center"
                     >
                       {/* Truncate needs a width to cut off text */}
@@ -190,7 +188,7 @@ export default function Player() {
                   className="p-0 h-9 w-9"
                   variant="secondary"
                   onClick={() => {
-                    values.setMusic(null);
+                    setMusic(null);
                     setCurrent(0);
                     localStorage.clear();
                     audioRef.current.currentTime = 0;

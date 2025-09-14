@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Badge } from "../ui/badge";
 import { Play } from "lucide-react";
+import { Button } from "../ui/button";
 
 export default function Next({ name, artist, image, id, next = true }) {
   return (
@@ -17,9 +18,9 @@ export default function Next({ name, artist, image, id, next = true }) {
         </div>
         {next && <Badge className="!font-normal">next</Badge>}
         {!next && (
-          <Badge>
-            <Play size={16} className="w-3 px-0 h-4" />
-          </Badge>
+          <Button size="icon" className="h-5 w-5 mr-1.5 px-0">
+            <Play size={16} className="!w-3 !h-3 -mr-px" />
+          </Button>
         )}
       </div>
     </Link>
