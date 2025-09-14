@@ -1,30 +1,20 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { getSongsById, getSongsLyricsById } from "@/lib/fetch";
-import {
-  Download,
-  Pause,
-  Play,
-  RedoDot,
-  UndoDot,
-  Repeat,
-  Loader2,
-  Bookmark,
-  BookmarkCheck,
-  Repeat1,
-  Share2,
-} from "lucide-react";
-import { useContext, useEffect, useRef, useState } from "react";
+import { getSongsById } from "@/lib/fetch";
+import { Download, Play, Repeat, Repeat1, Share2 } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Slider } from "@/components/ui/slider";
 import { toast } from "sonner";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
-import { NextContext } from "@/hooks/use-context";
+import {
+  NextContext,
+  useMusicProvider,
+  useNextMusicProvider,
+} from "@/hooks/use-context";
 import Next from "@/components/cards/next";
-import { useMusic } from "@/components/music-provider";
 import { IoPause } from "react-icons/io5";
-import { useDownloadProgress } from "@/components/download-progress";
 
 export default function Player({ id }) {
   const [data, setData] = useState([]);
@@ -36,9 +26,9 @@ export default function Player({ id }) {
   const [isLooping, setIsLooping] = useState(false);
   const [audioURL, setAudioURL] = useState("");
   const params = useSearchParams();
-  const next = useContext(NextContext);
-  const { currState, setCurrState, setTitle } = useDownloadProgress();
-  const { current, setCurrent } = useMusic();
+  const next = useNextMusicProvider();
+  const { current, setCurrent, setDownloadProgress, downloadProgress } =
+    useMusicProvider();
 
   const getSong = async () => {
     const get = await getSongsById(id);
@@ -72,13 +62,12 @@ export default function Player({ id }) {
 
   const downloadSong = async () => {
     if (isDownloading) {
-      setCurrState(0);
+      setDownloadProgress(0);
       setIsDownloading(false);
       return;
     }
     setIsDownloading(true);
-    setCurrState(0);
-    setTitle(data.name);
+    setDownloadProgress(0);
 
     const response = await fetch(audioURL);
     if (!response.ok) throw new Error("Failed to fetch");
@@ -103,7 +92,7 @@ export default function Player({ id }) {
 
         if (total) {
           const progress = Math.round((loaded / total) * 100);
-          setCurrState(progress);
+          setDownloadProgress(progress);
         }
       }
     }
@@ -119,8 +108,7 @@ export default function Player({ id }) {
 
     toast.success("Downloaded!");
     setIsDownloading(false);
-    setCurrState(0);
-    setTitle(null);
+    setDownloadProgress(0);
   };
 
   const handleSeek = (e) => {
@@ -278,7 +266,7 @@ export default function Player({ id }) {
                       onClick={downloadSong}
                     >
                       {isDownloading ? (
-                        currState
+                        downloadProgress
                       ) : (
                         <Download className="h-4 w-4" />
                       )}
