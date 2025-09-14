@@ -71,6 +71,11 @@ export default function Player({ id }) {
   };
 
   const downloadSong = async () => {
+    if (isDownloading) {
+      setCurrState(0);
+      setIsDownloading(false);
+      return;
+    }
     setIsDownloading(true);
     setCurrState(0);
     setTitle(data.name);
