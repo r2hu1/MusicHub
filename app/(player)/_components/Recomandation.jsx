@@ -5,14 +5,14 @@ import Next from "@/components/cards/next";
 import SongCard from "@/components/cards/song";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Skeleton } from "@/components/ui/skeleton";
-import { NextContext } from "@/hooks/use-context";
+import { useNextMusicProvider } from "@/hooks/use-context";
 import { getSongsSuggestions } from "@/lib/fetch";
 import { useContext, useEffect, useState } from "react";
 
 export default function Recomandation({ id }) {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
-  const next = useContext(NextContext);
+  const next = useNextMusicProvider();
 
   const getData = async () => {
     await getSongsSuggestions(id)
